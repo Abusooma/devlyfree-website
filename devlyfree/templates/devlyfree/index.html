@@ -200,7 +200,7 @@
         <div>
           <h4 class="title">{{ service.titre }}</h4>
           <p class="description"> {{service.petite_description}} </p>
-          <a href="#" class="readmore stretched-link"
+          <a href="{% url  'service_detail' service.slug %}" class="readmore stretched-link"
             ><span>En savoir plus</span><i class="bi bi-arrow-right"></i
           ></a>
         </div>
