@@ -88,55 +88,70 @@
   /**
    * Service Details Content Management
    */
-  function initServiceDetails() {
-    const serviceContentContainer = document.querySelector("#service-content");
-    const serviceLinks = document.querySelectorAll(".services-list a");
+ function initServiceDetails() {
+   const servicePage = document.querySelector("[data-service-page]");
+   if (!servicePage) return;
 
-    function updateServiceContent(serviceKey) {
-      const service = servicesData[serviceKey];
-      if (!service) return;
+   const serviceContentContainer = document.querySelector("#service-content");
+   const serviceLinks = document.querySelectorAll(".services-list a");
 
-      const currentContent =
-        serviceContentContainer.querySelector(".service-content");
-      if (currentContent) {
-        currentContent.style.opacity = "0";
-      }
+   // Récupérer le slug depuis l'URL
+   const path = window.location.pathname;
+   const pathParts = path.split("/").filter(Boolean);
+   const slug = pathParts[pathParts.length - 1];
 
-      setTimeout(() => {
-        serviceContentContainer.innerHTML = `
-               <div class="service-content">
-                   <img src="${service.image}" alt="${service.titre}" class="img-fluid services-img">
-                   ${service.grande_description}
-               </div>
-           `;
+   function updateServiceContent(serviceKey) {
+     const service = servicesData[serviceKey];
+     if (!service) return;
 
-        const newContent =
-          serviceContentContainer.querySelector(".service-content");
-        newContent.offsetHeight;
+     const currentContent =
+       serviceContentContainer.querySelector(".service-content");
+     if (currentContent) {
+       currentContent.style.opacity = "0";
+     }
 
-        requestAnimationFrame(() => {
-          newContent.style.opacity = "1";
-        });
-      }, 300);
+     setTimeout(() => {
+       serviceContentContainer.innerHTML = `
+       <div class="service-content">
+         <img src="${service.image}" alt="${service.titre}" class="img-fluid services-img">
+         ${service.grande_description}
+       </div>
+     `;
 
-      serviceLinks.forEach((link) => link.classList.remove("active"));
-      const activeLink = document.querySelector(
-        `[data-service="${serviceKey}"]`
-      );
-      if (activeLink) activeLink.classList.add("active");
-    }
+       const newContent =
+         serviceContentContainer.querySelector(".service-content");
+       newContent.offsetHeight;
 
-    serviceLinks.forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const serviceKey = link.getAttribute("data-service");
-        updateServiceContent(serviceKey);
-      });
-    });
+       requestAnimationFrame(() => {
+         newContent.style.opacity = "1";
+       });
+     }, 300);
 
-    const firstServiceKey = serviceLinks[0]?.getAttribute("data-service");
-    if (firstServiceKey) updateServiceContent(firstServiceKey);
-  }
+     serviceLinks.forEach((link) => link.classList.remove("active"));
+     const activeLink = document.querySelector(
+       `[data-service="${serviceKey}"]`
+     );
+     if (activeLink) activeLink.classList.add("active");
+   }
+
+   // Charger immédiatement le service correspondant au slug
+   if (slug && servicesData[slug]) {
+     updateServiceContent(slug);
+   } else {
+     console.log("No slug detected or invalid slug, loading first service");
+     const firstServiceKey = serviceLinks[0]?.getAttribute("data-service");
+     if (firstServiceKey) updateServiceContent(firstServiceKey);
+   }
+
+   serviceLinks.forEach((link) => {
+     link.addEventListener("click", (e) => {
+       e.preventDefault();
+       const serviceKey = link.getAttribute("data-service");
+       updateServiceContent(serviceKey);
+       window.history.pushState({}, "", `/services/${serviceKey}`);
+     });
+   });
+ }
 
   window.addEventListener("load", initServiceDetails);
 

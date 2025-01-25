@@ -70,42 +70,16 @@
                     </div>
                   </a>
                 </li>
+                {% for service in services|slice:":4" %}
                 <li>
-                  <a href="{% url 'service_detail' 'seo' %}">
-                    <i class="bi bi-briefcase" style="color: #f57813"></i>
+                  <a href="{% url 'service_detail' service.slug %}">
+                    <i class="{{ service.icone }}" style="{{ service.icone_couleur}};"></i>
                     <div>
-                      <h6>Solutions Web Professionnelles</h6>
-                      <span>Sites web personnalisés</span>
+                      <h6>{{ service.titre }}</h6>
                     </div>
                   </a>
                 </li>
-                <li>
-                  <a href="{% url 'service_detail' 'seo' %}">
-                    <i class="bi bi-cart-check" style="color: #15a04a"></i>
-                    <div>
-                      <h6>Solutions E-commerce</h6>
-                      <span>Boutiques en ligne</span>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'service_detail' 'seo' %}">
-                    <i class="bi bi-graph-up" style="color: #d90769"></i>
-                    <div>
-                      <h6>SEO et Visibilité Web</h6>
-                      <span>Optimisation SEO</span>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'service_detail' 'seo' %}">
-                    <i class="bi bi-megaphone" style="color: #f5cf13"></i>
-                    <div>
-                      <h6>Marketing Digital</h6>
-                      <span>Stratégies marketing</span>
-                    </div>
-                  </a>
-                </li>
+                {% endfor %}
               </ul>
             </li>
             <li><a href="{% url 'portfolio' %}" class="{% if request.resolver_match.url_name == 'portfolio' %}active{% endif %}">Portfolio</a></li>
