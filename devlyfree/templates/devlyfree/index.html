@@ -1,0 +1,463 @@
+{% extends 'main.html' %} 
+
+{% load static %}
+
+{% block title %} Acceuil {% endblock %} 
+
+{% block content %}
+<!-- Hero Section -->
+<section id="hero" class="hero">
+  <div class="hero-wrapper">
+    <div class="hero-background">
+      <div class="bg-overlay"></div>
+      <div class="bg-pattern"></div>
+      <div class="bg-image">
+        <img
+          src="{% static 'assets/img/hero2.jpg' %}"
+          alt="Arrière-plan représentant l'innovation digitale"
+        />
+      </div>
+    </div>
+
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="content-grid">
+        <div class="text-content" data-aos="fade-right">
+          <h1 class="hero-title">
+            <span class="highlight">Transformons</span>
+            <span class="text-outline">Vos Idées</span>
+            <span class="gradient-text">En Réalité Digitale</span>
+          </h1>
+
+          <div class="hero-description" data-aos="fade-up" data-aos-delay="100">
+            <p>
+              Spécialistes en création de sites web, e-commerce et solutions
+              digitales sur mesure. Nous donnons vie à vos projets avec
+              expertise et créativité.
+            </p>
+          </div>
+
+          <div class="cta-group" data-aos="fade-up" data-aos-delay="200">
+            <a href="#about" class="btn-primary">
+              <span>Démarrer Votre Projet</span>
+              <div class="btn-background"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- /Hero Section -->
+
+<!-- Why Us Section -->
+<section id="why-us" class="why-us section">
+  <div class="container">
+    <div class="row g-0">
+      <div class="col-xl-5 img-bg" data-aos="fade-up" data-aos-delay="100">
+        <img src="{% static 'assets/img/why-us-bg.jpg' %}" alt="Notre équipe au travail" />
+      </div>
+
+      <div
+        class="col-xl-7 slides position-relative"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "centeredSlides": true,
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "navigation": {
+                "nextEl": ".swiper-button-next",
+                "prevEl": ".swiper-button-prev"
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="item">
+                <h3 class="mb-3">Expertise Technique & Créativité</h3>
+                <h4 class="mb-3">
+                  Une équipe passionnée combinant expertise technique et vision
+                  créative pour votre succès digital.
+                </h4>
+                <p>
+                  Notre équipe d'experts maîtrise les dernières technologies et
+                  tendances du web. Nous ne nous contentons pas de créer des
+                  sites web, nous concevons des expériences numériques complètes
+                  qui captivent vos visiteurs et les convertissent en clients
+                  fidèles. Notre approche créative nous permet de nous démarquer
+                  et de vous offrir des solutions uniques et innovantes.
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="item">
+                <h3 class="mb-3">Solutions Sur Mesure</h3>
+                <h4 class="mb-3">
+                  Des solutions digitales adaptées à vos besoins spécifiques et
+                  à votre budget.
+                </h4>
+                <p>
+                  Nous comprenons que chaque entreprise est unique. C'est
+                  pourquoi nous développons des solutions personnalisées qui
+                  répondent précisément à vos objectifs commerciaux. De la
+                  conception à la mise en œuvre, nous travaillons en étroite
+                  collaboration avec vous pour garantir que chaque aspect de
+                  votre projet reflète votre vision et répond aux besoins de vos
+                  clients.
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="item">
+                <h3 class="mb-3">Accompagnement Complet</h3>
+                <h4 class="mb-3">
+                  Un support continu et un accompagnement personnalisé tout au
+                  long de votre projet.
+                </h4>
+                <p>
+                  Notre engagement ne s'arrête pas au lancement de votre projet.
+                  Nous vous offrons un accompagnement continu, des formations
+                  sur mesure et un support technique réactif. Notre objectif est
+                  de vous rendre autonome dans la gestion de vos outils
+                  numériques tout en restant à vos côtés pour vous aider à
+                  évoluer et à vous adapter aux changements du marché.
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="item">
+                <h3 class="mb-3">Résultats Mesurables</h3>
+                <h4 class="mb-3">
+                  Des stratégies orientées résultats pour maximiser votre retour
+                  sur investissement.
+                </h4>
+                <p>
+                  Nous nous engageons à générer des résultats concrets pour
+                  votre entreprise. Grâce à nos outils d'analyse avancés et
+                  notre expertise en SEO, nous optimisons continuellement vos
+                  performances en ligne. Nous vous fournissons des rapports
+                  détaillés et des recommandations concrètes pour améliorer
+                  votre présence digitale et augmenter votre chiffre d'affaires.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Why Us Section -->
+
+<!-- Services Section -->
+<section id="services" class="services section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Nos Services</h2>
+    <p>
+      Solutions numériques sur mesure pour propulser votre entreprise vers le
+      succès digital
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="row gy-4">
+      {% for service in services %}
+      <div
+        class="col-lg-4 col-md-6 service-item d-flex"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="icon flex-shrink-0">
+          <i class="{{ service.icone }}" style="color: {{ service.icone_couleur }}"></i>
+        </div>
+        <div>
+          <h4 class="title">{{ service.titre }}</h4>
+          <p class="description"> {{service.petite_description}} </p>
+          <a href="#" class="readmore stretched-link"
+            ><span>En savoir plus</span><i class="bi bi-arrow-right"></i
+          ></a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- /Services Section -->
+
+<!-- Call To Action Section -->
+<section id="call-to-action" class="call-to-action section dark-background">
+  <img
+    src="{% static 'assets/img/cta-bg.jpg' %}"
+    alt="Arrière-plan représentant l'innovation technologique"
+  />
+
+  <div class="container">
+    <div
+      class="row justify-content-center"
+      data-aos="zoom-in"
+      data-aos-delay="100"
+    >
+      <div class="col-xl-10">
+        <div class="text-center">
+          <h3>Prêt à Transformer Votre Présence Digitale ?</h3>
+          <p>
+            Que vous ayez besoin d'un site web professionnel, d'une boutique en
+            ligne performante ou d'une stratégie digitale complète, notre équipe
+            est là pour donner vie à votre projet. Bénéficiez d'une consultation
+            gratuite pour explorer ensemble les possibilités qui s'offrent à
+            vous.
+          </p>
+          <a class="cta-btn" href="#">Démarrer Votre Projet</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Call To Action Section -->
+
+<!-- Features Section -->
+<section id="features" class="features section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+        <h3 class="mb-0">Des Fonctionnalités Puissantes pour</h3>
+        <h3>Votre Entreprise</h3>
+
+        <div class="row gy-4">
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-eye" style="color: #ff8b2c"></i>
+              <span>Interface Utilisateur Intuitive</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-infinity" style="color: #5578ff"></i>
+              <span>Performance Optimisée</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-mortarboard" style="color: #e80368"></i>
+              <span>Formations et Accompagnement</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-star" style="color: #ffa76e"></i>
+              <span>Expérience Client Premium</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-x-diamond" style="color: #11dbcf"></i>
+              <span>Solutions Personnalisables</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-camera-video" style="color: #4233ff"></i>
+              <span>Intégration Multimédia Avancée</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-brightness-high" style="color: #29cc61"></i>
+              <span>Design Moderne et Réactif</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-activity" style="color: #ff5828"></i>
+              <span>Analyse de Performance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-lg-5 position-relative"
+        data-aos="zoom-out"
+        data-aos-delay="200"
+      >
+        <div class="phone-wrap">
+          <img
+            src="{% static 'assets/img/iphone.png' %}"
+            alt="Application mobile responsive"
+            class="img-fluid"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <h4>Transformez Votre Vision<br />En Réalité Digitale</h4>
+          <p>
+            Nous combinons expertise technique et créativité pour développer des
+            solutions web innovantes qui répondent parfaitement à vos besoins et
+            objectifs commerciaux.
+          </p>
+          <a href="#about" class="btn-get-started">Commencer un Projet</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Features Section -->
+
+<!-- Recent Posts Section -->
+<section id="recent-posts" class="recent-posts section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Articles Récents</h2>
+  </div>
+
+  <div class="container">
+    <div class="row gy-5">
+      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="post-box">
+          <div class="post-img">
+            <img
+              src="{% static 'assets/img/blog/blog-1.jpg' %}"
+              class="img-fluid"
+              alt="Image illustrant le e-commerce"
+            />
+          </div>
+          <div class="meta">
+            <span class="post-date">Mar, 15 Janvier 2024</span>
+            <span class="post-author"> / Sophie Martin</span>
+          </div>
+          <h3 class="post-title">
+            Comment Optimiser Votre Site E-commerce pour Booster vos Ventes
+          </h3>
+          <p>
+            Découvrez les meilleures pratiques pour optimiser votre boutique en
+            ligne : expérience utilisateur, tunnel de conversion, et stratégies
+            de fidélisation client...
+          </p>
+          <a href="blog-details.html" class="readmore stretched-link"
+            ><span>Lire Plus</span><i class="bi bi-arrow-right"></i
+          ></a>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+        <div class="post-box">
+          <div class="post-img">
+            <img
+              src="{% static 'assets/img/blog/blog-2.jpg' %}"
+              class="img-fluid"
+              alt="Image illustrant le SEO"
+            />
+          </div>
+          <div class="meta">
+            <span class="post-date">Jeu, 4 Janvier 2024</span>
+            <span class="post-author"> / Thomas Dubois</span>
+          </div>
+          <h3 class="post-title">Les Tendances SEO à Suivre en 2024</h3>
+          <p>
+            Les dernières mises à jour des algorithmes de Google et comment
+            adapter votre stratégie SEO pour maintenir et améliorer votre
+            classement...
+          </p>
+          <a href="blog-details.html" class="readmore stretched-link"
+            ><span>Lire Plus</span><i class="bi bi-arrow-right"></i
+          ></a>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
+        <div class="post-box">
+          <div class="post-img">
+            <img
+              src="{% static 'assets/img/blog/blog-3.jpg' %}"
+              class="img-fluid"
+              alt="Image illustrant le développement web"
+            />
+          </div>
+          <div class="meta">
+            <span class="post-date">Lun, 28 Décembre 2023</span>
+            <span class="post-author"> / Marie Laurent</span>
+          </div>
+          <h3 class="post-title">
+            Les Technologies Web Incontournables pour 2024
+          </h3>
+          <p>
+            Tour d'horizon des frameworks et technologies qui transforment le
+            développement web moderne. Focus sur la performance et l'expérience
+            utilisateur...
+          </p>
+          <a href="blog-details.html" class="readmore stretched-link"
+            ><span>Lire Plus</span><i class="bi bi-arrow-right"></i
+          ></a>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
+        <div class="post-box">
+          <div class="post-img">
+            <img
+              src="{% static 'assets/img/blog/blog-4.jpg' %}"
+              class="img-fluid"
+              alt="Image illustrant le marketing digital"
+            />
+          </div>
+          <div class="meta">
+            <span class="post-date">Mer, 20 Décembre 2023</span>
+            <span class="post-author"> / Lucas Bernard</span>
+          </div>
+          <h3 class="post-title">
+            Marketing Digital : Les Stratégies Qui Marchent
+          </h3>
+          <p>
+            Analyse des stratégies marketing les plus efficaces pour les petites
+            et moyennes entreprises. Cas pratiques et retours d'expérience...
+          </p>
+          <a href="blog-details.html" class="readmore stretched-link"
+            ><span>Lire Plus</span><i class="bi bi-arrow-right"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Recent Posts Section -->
+
+{% endblock %}

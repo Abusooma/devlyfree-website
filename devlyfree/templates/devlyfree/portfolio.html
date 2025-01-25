@@ -1,0 +1,370 @@
+{% extends 'main.html' %} 
+
+{% load static %} 
+
+{% block title %} Portfolio {% endblock %} 
+
+{% block content %}
+
+<!-- Page Title -->
+<div
+  class="page-title dark-background"
+  data-aos="fade"
+  style="background-image: url('{% static 'assets/img/portfolio-page-title-bg.jpg' %}')"
+>
+  <div class="container">
+    <h1>Portfolio</h1>
+    <nav class="breadcrumbs">
+      <ol>
+        <li><a href="{% url 'home' %}">Acceuil</a></li>
+        <li class="current">Portfolio</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<!-- End Page Title -->
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio section">
+  <div class="container">
+    <div
+      class="isotope-layout"
+      data-default-filter="*"
+      data-layout="masonry"
+      data-sort="original-order"
+    >
+      <ul
+        class="portfolio-filters isotope-filters"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <li data-filter="*" class="filter-active">Tous</li>
+        <li data-filter=".filter-app">Applications</li>
+        <li data-filter=".filter-product">E-commerce</li>
+        <li data-filter=".filter-branding">Sites Web</li>
+        <li data-filter=".filter-books">Marketing</li>
+      </ul>
+
+      <div
+        class="row gy-4 isotope-container"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+          <img
+            src="{% static 'assets/img/portfolio/app-1.jpg' %}"
+            class="img-fluid"
+            alt="Application de gestion pour restaurateurs"
+          />
+          <div class="portfolio-info">
+            <h4>RestauManager</h4>
+            <p>Application web de gestion des commandes</p>
+            <a
+              href="{% static 'assets/img/portfolio/app-1.jpg' %}"
+              title="RestauManager"
+              data-gallery="portfolio-gallery-app"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product"
+        >
+          <img
+            src="{% static 'assets/img/portfolio/product-1.jpg' %}"
+            class="img-fluid"
+            alt="Boutique en ligne de mode"
+          />
+          <div class="portfolio-info">
+            <h4>Fashion Store</h4>
+            <p>Plateforme e-commerce de mode</p>
+            <a
+              href="{% static 'assets/img/portfolio/product-1.jpg' %}"
+              title="Fashion Store"
+              data-gallery="portfolio-gallery-product"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding"
+        >
+          <img
+            src="{% static 'assets/img/portfolio/branding-1.jpg' %}"
+            class="img-fluid"
+            alt="Site web immobilier"
+          />
+          <div class="portfolio-info">
+            <h4>Immobilier Premium</h4>
+            <p>Site vitrine avec recherche avancée</p>
+            <a
+              href="{% static 'assets/img/portfolio/branding-1.jpg' %}"
+              title="Immobilier Premium"
+              data-gallery="portfolio-gallery-branding"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+          <img
+            src="{% static 'assets/img/portfolio/books-1.jpg' %}"
+            class="img-fluid"
+            alt="Campagne marketing digitale"
+          />
+          <div class="portfolio-info">
+            <h4>Bio Market</h4>
+            <p>Stratégie digitale globale</p>
+            <a
+              href="{% static 'assets/img/portfolio/books-1.jpg' %}"
+              title="Bio Market"
+              data-gallery="portfolio-gallery-book"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+          <img
+            src="{% static 'assets/img/portfolio/app-2.jpg' %}"
+            class="img-fluid"
+            alt="Application de fitness"
+          />
+          <div class="portfolio-info">
+            <h4>FitConnect</h4>
+            <p>Application de suivi sportif</p>
+            <a
+              href="{% static 'assets/img/portfolio/app-2.jpg' %}"
+              title="FitConnect"
+              data-gallery="portfolio-gallery-app"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product"
+        >
+          <img
+            src="{% static 'assets/img/portfolio/product-2.jpg' %}"
+            class="img-fluid"
+            alt="Marketplace artisanale"
+          />
+          <div class="portfolio-info">
+            <h4>Artisans Connect</h4>
+            <p>Plateforme de vente artisanale</p>
+            <a
+              href="{% static 'assets/img/portfolio/product-2.jpg' %}"
+              title="Artisans Connect"
+              data-gallery="portfolio-gallery-product"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding"
+        >
+          <img
+            src="{% static 'assets/img/portfolio/branding-2.jpg' %}"
+            class="img-fluid"
+            alt="Site web médical"
+          />
+          <div class="portfolio-info">
+            <h4>Centre Médical Plus</h4>
+            <p>Plateforme de rendez-vous médicaux</p>
+            <a
+              href="assets/img/portfolio/branding-2.jpg"
+              title="Centre Médical Plus"
+              data-gallery="portfolio-gallery-branding"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+          <img
+            src="{% static 'assets/img/portfolio/books-2.jpg' %}"
+            class="img-fluid"
+            alt="Campagne événementielle"
+          />
+          <div class="portfolio-info">
+            <h4>Urban Festival</h4>
+            <p>Promotion événementielle digitale</p>
+            <a
+              href="{% static 'assets/img/portfolio/books-2.jpg' %}"
+              title="Urban Festival"
+              data-gallery="portfolio-gallery-book"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+          <img
+            src="{% static 'assets/img/portfolio/app-3.jpg' %}"
+            class="img-fluid"
+            alt="Application de gestion"
+          />
+          <div class="portfolio-info">
+            <h4>BusinessFlow</h4>
+            <p>Solution de gestion d'entreprise</p>
+            <a
+              href="{% static 'assets/img/portfolio/app-3.jpg' %}"
+              title="BusinessFlow"
+              data-gallery="portfolio-gallery-app"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product"
+        >
+          <img
+            src="{% static 'assets/img/portfolio/product-3.jpg' %}"
+            class="img-fluid"
+            alt="Boutique high-tech"
+          />
+          <div class="portfolio-info">
+            <h4>TechShop Pro</h4>
+            <p>E-commerce produits high-tech</p>
+            <a
+              href="{% static 'assets/img/portfolio/product-3.jpg' %}"
+              title="TechShop Pro"
+              data-gallery="portfolio-gallery-product"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding"
+        >
+          <img
+            src="{% static 'assets/img/portfolio/branding-3.jpg' %}"
+            class="img-fluid"
+            alt="Site web éducatif"
+          />
+          <div class="portfolio-info">
+            <h4>EduLearn</h4>
+            <p>Plateforme e-learning interactive</p>
+            <a
+              href="{% static 'assets/img/portfolio/branding-3.jpg' %}"
+              title="EduLearn"
+              data-gallery="portfolio-gallery-branding"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+          <img
+            src="{% static 'assets/img/portfolio/books-3.jpg' %}"
+            class="img-fluid"
+            alt="Campagne réseaux sociaux"
+          />
+          <div class="portfolio-info">
+            <h4>Social Impact</h4>
+            <p>Stratégie réseaux sociaux</p>
+            <a
+              href="{% static 'assets/img/portfolio/books-3.jpg' %}"
+              title="Social Impact"
+              data-gallery="portfolio-gallery-book"
+              class="glightbox preview-link"
+              ><i class="bi bi-zoom-in"></i
+            ></a>
+            <a
+              href="portfolio-details.html"
+              title="Plus de Détails"
+              class="details-link"
+              ><i class="bi bi-link-45deg"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Portfolio Section -->
+
+{% endblock %}

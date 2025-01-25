@@ -1,0 +1,432 @@
+{% extends 'main.html' %} 
+
+{% load static %} 
+
+{% block title %} Blog {% endblock %} 
+
+{% block content %}
+
+<!-- Page Title -->
+<div
+  class="page-title dark-background"
+  data-aos="fade"
+  style="background-image: url('{% static 'assets/img/blog-page-title-bg.jpg' %}')"
+>
+  <div class="container">
+    <h1>Blog</h1>
+    <nav class="breadcrumbs">
+      <ol>
+        <li><a href="{% url 'home' %}">Acceuil</a></li>
+        <li class="current">Blog</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<!-- End Page Title -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <!-- Blog Posts Section -->
+      <section id="blog-posts" class="blog-posts section">
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-lg-6">
+              <article>
+                <div class="post-img">
+                  <img
+                    src="{% static 'assets/img/blog/blog-1.jpg' %}"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
+
+                <p class="post-category">Développement Web</p>
+
+                <h2 class="title">
+                  <a href="blog-details.html"
+                    >Les tendances du développement web à suivre en 2025</a
+                  >
+                </h2>
+
+                <div class="d-flex align-items-center">
+                  <img
+                    src="{% static 'assets/img/blog/blog-author.jpg' %}"
+                    alt=""
+                    class="img-fluid post-author-img flex-shrink-0"
+                  />
+                  <div class="post-meta">
+                    <p class="post-author">Sophie Martin</p>
+                    <p class="post-date">
+                      <time datetime="2025-01-15">Jan 15, 2025</time>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <!-- End post list item -->
+
+            <div class="col-lg-6">
+              <article>
+                <div class="post-img">
+                  <img
+                    src="{% static 'assets/img/blog/blog-2.jpg' %}"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
+
+                <p class="post-category">E-commerce</p>
+
+                <h2 class="title">
+                  <a href="blog-details.html"
+                    >Comment optimiser votre site e-commerce pour augmenter vos
+                    ventes</a
+                  >
+                </h2>
+
+                <div class="d-flex align-items-center">
+                  <img
+                    src="{% static 'assets/img/blog/blog-author-2.jpg' %}"
+                    alt=""
+                    class="img-fluid post-author-img flex-shrink-0"
+                  />
+                  <div class="post-meta">
+                    <p class="post-author">Thomas Dubois</p>
+                    <p class="post-date">
+                      <time datetime="2025-01-10">Jan 10, 2025</time>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <!-- End post list item -->
+
+            <div class="col-lg-6">
+              <article>
+                <div class="post-img">
+                  <img
+                    src="{% static 'assets/img/blog/blog-3.jpg' %}"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
+
+                <p class="post-category">Applications Mobile</p>
+
+                <h2 class="title">
+                  <a href="blog-details.html"
+                    >Développement d'applications mobiles : Native vs Hybride -
+                    Comment choisir ?</a
+                  >
+                </h2>
+
+                <div class="d-flex align-items-center">
+                  <img
+                    src="{% static 'assets/img/blog/blog-author-3.jpg' %}"
+                    alt=""
+                    class="img-fluid post-author-img flex-shrink-0"
+                  />
+                  <div class="post-meta">
+                    <p class="post-author">Julie Bernard</p>
+                    <p class="post-date">
+                      <time datetime="2025-01-05">Jan 5, 2025</time>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <!-- End post list item -->
+
+            <div class="col-lg-6">
+              <article>
+                <div class="post-img">
+                  <img
+                    src="{% static 'assets/img/blog/blog-4.jpg' %}"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
+
+                <p class="post-category">Design UX/UI</p>
+
+                <h2 class="title">
+                  <a href="blog-details.html"
+                    >Les principes essentiels du design UX/UI pour un site web
+                    performant</a
+                  >
+                </h2>
+
+                <div class="d-flex align-items-center">
+                  <img
+                    src="{% static 'assets/img/blog/blog-author-4.jpg' %}"
+                    alt=""
+                    class="img-fluid post-author-img flex-shrink-0"
+                  />
+                  <div class="post-meta">
+                    <p class="post-author">Alexandre Chen</p>
+                    <p class="post-date">
+                      <time datetime="2024-12-30">Dec 30, 2024</time>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <!-- End post list item -->
+
+            <div class="col-lg-6">
+              <article>
+                <div class="post-img">
+                  <img
+                    src="{% static 'assets/img/blog/blog-5.jpg' %}"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
+
+                <p class="post-category">SEO</p>
+
+                <h2 class="title">
+                  <a href="blog-details.html"
+                    >Stratégies SEO avancées pour améliorer votre visibilité en
+                    ligne</a
+                  >
+                </h2>
+
+                <div class="d-flex align-items-center">
+                  <img
+                    src="{% static 'assets/img/blog/blog-author-5.jpg' %}"
+                    alt=""
+                    class="img-fluid post-author-img flex-shrink-0"
+                  />
+                  <div class="post-meta">
+                    <p class="post-author">Marie Leroy</p>
+                    <p class="post-date">
+                      <time datetime="2024-12-25">Dec 25, 2024</time>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <!-- End post list item -->
+
+            <div class="col-lg-6">
+              <article>
+                <div class="post-img">
+                  <img
+                    src="{% static 'assets/img/blog/blog-6.jpg' %}"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
+
+                <p class="post-category">Technologie</p>
+
+                <h2 class="title">
+                  <a href="blog-details.html"
+                    >L'intelligence artificielle dans le développement web
+                    moderne</a
+                  >
+                </h2>
+
+                <div class="d-flex align-items-center">
+                  <img
+                    src="{% static 'assets/img/blog/blog-author-6.jpg' %}"
+                    alt=""
+                    class="img-fluid post-author-img flex-shrink-0"
+                  />
+                  <div class="post-meta">
+                    <p class="post-author">Paul Durand</p>
+                    <p class="post-date">
+                      <time datetime="2024-12-20">Dec 20, 2024</time>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <!-- End post list item -->
+          </div>
+        </div>
+      </section>
+      <!-- /Blog Posts Section -->
+
+      <!-- Blog Pagination Section -->
+      <section id="blog-pagination" class="blog-pagination section">
+        <div class="container">
+          <div class="d-flex justify-content-center">
+            <ul>
+              <li>
+                <a href="#"><i class="bi bi-chevron-left"></i></a>
+              </li>
+              <li><a href="#">1</a></li>
+              <li><a href="#" class="active">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li>...</li>
+              <li><a href="#">10</a></li>
+              <li>
+                <a href="#"><i class="bi bi-chevron-right"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- /Blog Pagination Section -->
+    </div>
+
+    <div class="col-lg-4 sidebar">
+      <div class="widgets-container">
+        <!-- Search Widget -->
+        <div class="search-widget widget-item">
+          <h3 class="widget-title">Rechercher</h3>
+          <form action="">
+            <input type="text" placeholder="Rechercher un article..." />
+            <button type="submit" title="Search">
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+        </div>
+        <!--/Search Widget -->
+
+        <!-- Categories Widget -->
+        <div class="categories-widget widget-item">
+          <h3 class="widget-title">Catégories</h3>
+          <ul class="mt-3">
+            <li>
+              <a href="#">Développement Web <span>(15)</span></a>
+            </li>
+            <li>
+              <a href="#">E-commerce <span>(8)</span></a>
+            </li>
+            <li>
+              <a href="#">Applications Mobile <span>(12)</span></a>
+            </li>
+            <li>
+              <a href="#">Design UX/UI <span>(10)</span></a>
+            </li>
+            <li>
+              <a href="#">SEO <span>(7)</span></a>
+            </li>
+            <li>
+              <a href="#">Technologie <span>(9)</span></a>
+            </li>
+          </ul>
+        </div>
+        <!--/Categories Widget -->
+
+        <!-- Recent Posts Widget -->
+        <div class="recent-posts-widget widget-item">
+          <h3 class="widget-title">Articles Récents</h3>
+
+          <div class="post-item">
+            <img
+              src="{% static 'assets/img/blog/blog-recent-1.jpg' %}"
+              alt=""
+              class="flex-shrink-0"
+            />
+            <div>
+              <h4>
+                <a href="blog-details.html"
+                  >Les meilleures pratiques de sécurité web en 2025</a
+                >
+              </h4>
+              <time datetime="2025-01-15">Jan 15, 2025</time>
+            </div>
+          </div>
+          <!-- End recent post item-->
+
+          <div class="post-item">
+            <img
+              src="{% static 'assets/img/blog/blog-recent-2.jpg' %}"
+              alt=""
+              class="flex-shrink-0"
+            />
+            <div>
+              <h4>
+                <a href="blog-details.html"
+                  >Optimisation des performances web</a
+                >
+              </h4>
+              <time datetime="2025-01-10">Jan 10, 2025</time>
+            </div>
+          </div>
+          <!-- End recent post item-->
+
+          <div class="post-item">
+            <img
+              src="{% static 'assets/img/blog/blog-recent-3.jpg' %}"
+              alt=""
+              class="flex-shrink-0"
+            />
+            <div>
+              <h4>
+                <a href="blog-details.html"
+                  >Comment créer une stratégie de contenu efficace pour votre
+                  site</a
+                >
+              </h4>
+              <time datetime="2025-01-05">Jan 5, 2025</time>
+            </div>
+          </div>
+          <!-- End recent post item-->
+
+          <div class="post-item">
+            <img
+              src="{% static 'assets/img/blog/blog-recent-4.jpg' %}"
+              alt=""
+              class="flex-shrink-0"
+            />
+            <div>
+              <h4>
+                <a href="blog-details.html"
+                  >Guide complet du responsive design</a
+                >
+              </h4>
+              <time datetime="2024-12-30">Dec 30, 2024</time>
+            </div>
+          </div>
+          <!-- End recent post item-->
+
+          <div class="post-item">
+            <img
+              src="{% static 'assets/img/blog/blog-recent-5.jpg' %}"
+              alt=""
+              class="flex-shrink-0"
+            />
+            <div>
+              <h4>
+                <a href="blog-details.html"
+                  >Les tendances du web design pour 2025</a
+                >
+              </h4>
+              <time datetime="2024-12-25">Dec 25, 2024</time>
+            </div>
+          </div>
+          <!-- End recent post item-->
+        </div>
+        <!--/Recent Posts Widget -->
+
+        <!-- Tags Widget -->
+        <div class="tags-widget widget-item">
+          <h3 class="widget-title">Tags</h3>
+          <ul>
+            <li><a href="#">React</a></li>
+            <li><a href="#">Vue.js</a></li>
+            <li><a href="#">Node.js</a></li>
+            <li><a href="#">WordPress</a></li>
+            <li><a href="#">UX/UI</a></li>
+            <li><a href="#">Mobile</a></li>
+            <li><a href="#">Frontend</a></li>
+            <li><a href="#">Backend</a></li>
+            <li><a href="#">SEO</a></li>
+            <li><a href="#">API</a></li>
+            <li><a href="#">DevOps</a></li>
+          </ul>
+        </div>
+        <!--/Tags Widget -->
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

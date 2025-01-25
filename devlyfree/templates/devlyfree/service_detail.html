@@ -1,0 +1,67 @@
+{% extends 'main.html' %} 
+
+{% load static %} 
+
+{% block title %}{% endblock %} 
+
+{% block content %}
+
+<!-- Page Title -->
+<div
+  class="page-title dark-background"
+  data-aos="fade"
+  style="background-image: url('{% static 'assets/img/services-page-title-bg.jpg' %}')"
+>
+  <div class="container">
+    <h1>Service Details</h1>
+    <nav class="breadcrumbs">
+      <ol>
+        <li><a href="{% url 'home' %}">Acceuil</a></li>
+        <li class="current"></li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<!-- End Page Title -->
+
+<section id="service-details" class="service-details section">
+  <div class="container">
+    <div class="row gy-5">
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-box">
+          <h4>Nos Services</h4>
+          <div class="services-list">
+            {% for service in all_services %}
+              <a href="#" data-service="{{ service.slug }}" {% if forloop.first %}class="active"{% endif %}>
+                <i class="bi bi-arrow-right-circle"></i>
+                <span>{{ service.titre }}</span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200" id="service-content">
+        <div class="service-content" style="opacity: 0; transition: opacity 0.3s ease">
+          <!-- Le contenu sera injecté par JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const servicesData = {
+        {% for service in all_services %}
+            "{{ service.slug }}": {
+                "titre": "{{ service.titre|escapejs }}",
+                "image": "{{ service.image.url }}",
+                "grande_description": "{{ service.grande_description|escapejs|safe }}"
+            }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    };
+</script>
+{% endblock %}

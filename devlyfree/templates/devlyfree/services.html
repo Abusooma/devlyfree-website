@@ -1,0 +1,340 @@
+{% extends 'main.html' %} 
+
+{% load static %}
+
+{% block title %} Nos Services {% endblock %} 
+
+{% block content %}
+
+<!-- Page Title -->
+<div
+  class="page-title dark-background"
+  data-aos="fade"
+  style="background-image: url('{% static 'assets/img/services-page-title-bg.jpg' %}')"
+>
+  <div class="container">
+    <h1>Services</h1>
+    <nav class="breadcrumbs">
+      <ol>
+        <li><a href="{% url 'home' %}">Accueil</a></li>
+        <li class="current">Services</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<!-- End Page Title -->
+
+<!-- Services Section -->
+<section id="services" class="services section">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Nos Services</h2>
+    <p>
+      Des solutions digitales complètes pour développer votre présence en ligne
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="row gy-4">
+       {% for service in services %}
+      <div
+        class="col-lg-4 col-md-6 service-item d-flex"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="icon flex-shrink-0">
+          <i class="{{ service.icone }}" style="color: {{ service.icone_couleur }}"></i>
+        </div>
+        <div>
+          <h4 class="title">{{ service.titre }}</h4>
+          <p class="description"> {{service.petite_description}} </p>
+          <a href="{% url 'service_detail' service.slug %}" class="readmore stretched-link"
+            ><span>En savoir plus</span><i class="bi bi-arrow-right"></i
+          ></a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- /Services Section -->
+
+<!-- Service Cards Section -->
+<section id="service-cards" class="service-cards section">
+  <div class="container-fluid">
+    <div class="row gy-4">
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-item">
+          <div class="row">
+            <div class="col-xl-5">
+              <div class="card-bg">
+                <img
+                  src="{% static 'assets/img/cards-1.jpg' %}"
+                  alt="Expertise technique et solutions personnalisées"
+                />
+              </div>
+            </div>
+            <div class="col-xl-7 d-flex align-items-center">
+              <div class="card-body">
+                <h4 class="card-title">Expertise Technique & Innovation</h4>
+                <p>
+                  Notre équipe de développeurs qualifiés maîtrise les dernières
+                  technologies web pour créer des solutions innovantes et
+                  performantes. Nous utilisons les meilleures pratiques de
+                  développement pour garantir des projets évolutifs et
+                  maintenables.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-item">
+          <div class="row">
+            <div class="col-xl-5">
+              <div class="card-bg">
+                <img
+                  src="{% static 'assets/img/cards-5.jpg' %}"
+                  alt="Design responsive et expérience utilisateur"
+                />
+              </div>
+            </div>
+            <div class="col-xl-7 d-flex align-items-center">
+              <div class="card-body">
+                <h4 class="card-title">Design Centré Utilisateur</h4>
+                <p>
+                  Nous créons des interfaces intuitives et esthétiques qui
+                  offrent une expérience utilisateur exceptionnelle. Chaque
+                  projet est optimisé pour tous les appareils, garantissant une
+                  navigation fluide et agréable pour vos visiteurs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-item">
+          <div class="row">
+            <div class="col-xl-5">
+              <div class="card-bg">
+                <img
+                  src="{% static 'assets/img/cards-3.jpg' %}"
+                  alt="Stratégie digitale et croissance"
+                />
+              </div>
+            </div>
+            <div class="col-xl-7 d-flex align-items-center">
+              <div class="card-body">
+                <h4 class="card-title">Stratégie Digitale Complète</h4>
+                <p>
+                  Au-delà du développement, nous vous accompagnons dans votre
+                  stratégie digitale globale. SEO, marketing digital, analyse de
+                  données : nous mettons en place les outils nécessaires pour
+                  maximiser votre présence en ligne.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+        <div class="card-item">
+          <div class="row">
+            <div class="col-xl-5">
+              <div class="card-bg">
+                <img
+                  src="{% static 'assets/img/cards-4.jpg' %}"
+                  alt="Support et accompagnement continu"
+                />
+              </div>
+            </div>
+            <div class="col-xl-7 d-flex align-items-center">
+              <div class="card-body">
+                <h4 class="card-title">Accompagnement Sur Mesure</h4>
+                <p>
+                  Notre engagement va au-delà de la livraison du projet. Nous
+                  vous offrons un support continu, des mises à jour régulières
+                  et une maintenance proactive pour garantir la pérennité de
+                  votre solution digitale.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Service Cards Section -->
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonials section">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Témoignages Clients</h2>
+    <p>Découvrez ce que nos clients disent de notre collaboration</p>
+  </div>
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="swiper init-swiper">
+      <script type="application/json" class="swiper-config">
+        {
+          "loop": true,
+          "speed": 600,
+          "autoplay": {
+            "delay": 5000
+          },
+          "slidesPerView": "auto",
+          "pagination": {
+            "el": ".swiper-pagination",
+            "type": "bullets",
+            "clickable": true
+          },
+          "breakpoints": {
+            "320": {
+              "slidesPerView": 1,
+              "spaceBetween": 40
+            },
+            "1200": {
+              "slidesPerView": 3,
+              "spaceBetween": 1
+            }
+          }
+        }
+      </script>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i>
+            </div>
+            <p>
+              "L'équipe a parfaitement compris nos besoins et a créé un site
+              e-commerce qui dépasse nos attentes. La transition vers le digital
+              s'est faite en douceur, et nos ventes en ligne ont
+              significativement augmenté dès le premier mois."
+            </p>
+            <div class="profile mt-auto">
+              <img
+                src="{% static 'assets/img/testimonials/testimonials-1.jpg' %}"
+                class="testimonial-img"
+                alt="Photo de Sophie Martin"
+              />
+              <h3>Sophie Martin</h3>
+              <h4>Directrice, Boutique Mode Parisienne</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i>
+            </div>
+            <p>
+              "Professionnalisme et réactivité exemplaires. Notre nouveau site
+              web a complètement transformé notre image de marque. Le suivi SEO
+              nous a permis d'améliorer considérablement notre visibilité sur
+              Google."
+            </p>
+            <div class="profile mt-auto">
+              <img
+                src="{% static 'assets/img/testimonials/testimonials-2.jpg' %}"
+                class="testimonial-img"
+                alt="Photo de Thomas Dubois"
+              />
+              <h3>Thomas Dubois</h3>
+              <h4>CEO, Entreprise de Services</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i>
+            </div>
+            <p>
+              "Une expertise remarquable en développement web. L'application sur
+              mesure qu'ils ont développée pour notre entreprise a grandement
+              optimisé nos processus internes. Un véritable partenaire de
+              confiance."
+            </p>
+            <div class="profile mt-auto">
+              <img
+                src="{% static 'assets/img/testimonials/testimonials-3.jpg' %}"
+                class="testimonial-img"
+                alt="Photo de Marie Laurent"
+              />
+              <h3>Marie Laurent</h3>
+              <h4>Directrice Marketing, Tech Solutions</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i>
+            </div>
+            <p>
+              "La refonte de notre site web a été un véritable succès. L'équipe
+              a su capturer l'essence de notre marque et la traduire en une
+              expérience digitale moderne et engageante. Un grand merci pour
+              leur créativité."
+            </p>
+            <div class="profile mt-auto">
+              <img
+                src="{% static 'assets/img/testimonials/testimonials-4.jpg' %}"
+                class="testimonial-img"
+                alt="Photo de Lucas Bernard"
+              />
+              <h3>Lucas Bernard</h3>
+              <h4>Fondateur, Studio Design</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i>
+            </div>
+            <p>
+              "Une collaboration exceptionnelle. Leur approche stratégique du
+              marketing digital nous a permis de développer notre présence en
+              ligne et d'atteindre de nouveaux marchés. Résultats concrets
+              garantis."
+            </p>
+            <div class="profile mt-auto">
+              <img
+                src="{% static 'assets/img/testimonials/testimonials-5.jpg' %}"
+                class="testimonial-img"
+                alt="Photo de Claire Dubois"
+              />
+              <h3>Claire Dubois</h3>
+              <h4>Directrice Commerciale, Innovation Retail</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+<!-- /Testimonials Section -->
+
+{% endblock %}
