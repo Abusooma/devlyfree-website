@@ -19,7 +19,7 @@
     <nav class="breadcrumbs">
       <ol>
         <li><a href="{% url 'home' %}">Acceuil</a></li>
-        <li class="current"> Nos Services</li>
+        <li class="current">{{ service.titre }} </li>
       </ol>
     </nav>
   </div>
@@ -35,7 +35,7 @@
           <div class="services-list">
             {% for service in all_services %}
             <a
-              href="#"
+              href="{% url 'service_detail' service.slug %}"
               data-service="{{ service.slug }}"
               class="{% if selected_slug and service.slug == selected_slug %}active{% endif %}"
             >
@@ -68,7 +68,8 @@
   </div>
 </section>
 
-{% endblock %} {% block extra_js %}
+{% endblock %} 
+{% block extra_js %}
 <script>
   const servicesData = {
       {% for service in all_services %}

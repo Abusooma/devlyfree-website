@@ -12,20 +12,20 @@ def about_view(request):
     return render(request, 'devlyfree/about.html')
 
 
-def service_view(request, slug=None):
+def service_view(request):
     services = Service.objects.all()
-    selected_slug = slug
-    print(selected_slug)
-    if slug:
-        service = get_object_or_404(Service, slug=slug)
-        all_services = Service.objects.all()
-        context = {
-            'service': service,
-            'all_services': all_services,
-            'selected_slug': selected_slug
-        }
-        return render(request, 'devlyfree/service_detail.html', context=context)
     return render(request, 'devlyfree/services.html', {'services': services})
+
+
+def service_detail_view(request, slug):
+    service = get_object_or_404(Service, slug=slug)
+    all_services = Service.objects.all()
+    context = {
+        'service': service,
+        'all_services': all_services,
+        'selected_slug': slug
+    }
+    return render(request, 'devlyfree/service_detail.html', context=context)
 
 
 def porfolio_view(request):

@@ -95,7 +95,6 @@
    const serviceContentContainer = document.querySelector("#service-content");
    const serviceLinks = document.querySelectorAll(".services-list a");
 
-   // Récupérer le slug depuis l'URL
    const path = window.location.pathname;
    const pathParts = path.split("/").filter(Boolean);
    const slug = pathParts[pathParts.length - 1];
@@ -103,6 +102,11 @@
    function updateServiceContent(serviceKey) {
      const service = servicesData[serviceKey];
      if (!service) return;
+
+     const currentBreadcrumb = document.querySelector(".breadcrumbs .current");
+     if (currentBreadcrumb) {
+       currentBreadcrumb.textContent = service.titre;
+     }
 
      const currentContent =
        serviceContentContainer.querySelector(".service-content");
@@ -112,11 +116,11 @@
 
      setTimeout(() => {
        serviceContentContainer.innerHTML = `
-       <div class="service-content">
-         <img src="${service.image}" alt="${service.titre}" class="img-fluid services-img">
-         ${service.grande_description}
-       </div>
-     `;
+        <div class="service-content">
+          <img src="${service.image}" alt="${service.titre}" class="img-fluid services-img">
+          ${service.grande_description}
+        </div>
+      `;
 
        const newContent =
          serviceContentContainer.querySelector(".service-content");
@@ -134,23 +138,24 @@
      if (activeLink) activeLink.classList.add("active");
    }
 
-   // Charger immédiatement le service correspondant au slug
+   serviceLinks.forEach((link) => {
+     link.addEventListener("click", (e) => {
+       const serviceKey = link.getAttribute("data-service");
+       updateServiceContent(serviceKey);
+       if (history.pushState) {
+         window.history.pushState(null, "", link.href);
+       } else {
+         window.location.href = link.href;
+       }
+     });
+   });
+
    if (slug && servicesData[slug]) {
      updateServiceContent(slug);
    } else {
-     console.log("No slug detected or invalid slug, loading first service");
      const firstServiceKey = serviceLinks[0]?.getAttribute("data-service");
      if (firstServiceKey) updateServiceContent(firstServiceKey);
    }
-
-   serviceLinks.forEach((link) => {
-     link.addEventListener("click", (e) => {
-       e.preventDefault();
-       const serviceKey = link.getAttribute("data-service");
-       updateServiceContent(serviceKey);
-       window.history.pushState({}, "", `/services/${serviceKey}`);
-     });
-   });
  }
 
   window.addEventListener("load", initServiceDetails);
