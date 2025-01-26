@@ -1,5 +1,6 @@
 from django.db import models
 from autoslug import AutoSlugField
+from cloudinary.models import CloudinaryField
 
 
 class Service(models.Model):
@@ -32,9 +33,11 @@ class Service(models.Model):
         blank=True,
         null=True
     )
-    image = models.ImageField(upload_to='service/pics', blank=True, null=True)
+    image = CloudinaryField(blank=True, null=True)
     icone = models.CharField(max_length=25, choices=ICON_CHOICES)
     icone_couleur = models.CharField(max_length=7, choices=ICON_COLOR_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return str(self.titre)
