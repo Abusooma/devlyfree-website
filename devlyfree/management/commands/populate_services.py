@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.core.files import File
 from django.conf import settings
 from devlyfree.models import Service
+import shutil
 import os
 
 
@@ -105,25 +106,38 @@ class Command(BaseCommand):
         
         BASE_DIR = settings.BASE_DIR
 
-        for data in services_data:
-            service = Service(
-                titre=data['titre'],
-                petite_description=data['petite_description'],
-                grande_description=data['grande_description'],
-                icone=data['icone'],
-                icone_couleur=data['icone_couleur']
-            )
+        service_img_dir = os.path.join(BASE_DIR, 'assets', 'static', 'service')
+
+        try:
+            for data in services_data:
+                service = Service(
+                    titre=data['titre'],
+                    petite_description=data['petite_description'],
+                    grande_description=data['grande_description'],
+                    icone=data['icone'],
+                    icone_couleur=data['icone_couleur']
+                )
+                
+                img_path = os.path.join(
+                    BASE_DIR, 'assets', 'static', 'service', 'img', data['img_path'])
+                if os.path.exists(img_path):
+                    with open(img_path, 'rb') as img_file:
+                        service.image.save(
+                            os.path.basename(data['img_path']),
+                            File(img_file),
+                        )
+                else:
+                    self.stdout.write(self.style.WARNING(f"Image non trouvée {img_path}"))
+                
+                service.save()
+                self.stdout.write(self.style.SUCCESS(f'Service "{data["titre"]}" créé avec succès'))
             
-            img_path = os.path.join(
-                BASE_DIR, 'assets', 'static', 'service', 'img', data['img_path'])
-            if os.path.exists(img_path):
-                with open(img_path, 'rb') as img_file:
-                    service.image.save(
-                        os.path.basename(data['img_path']),
-                        File(img_file),
-                    )
-            else:
-                self.stdout.write(self.style.WARNING(f"Image non trouvée {img_path}"))
+            # supprimer le dossier service_img_dir après le peuplement
             
-            service.save()
-            self.stdout.write(self.style.SUCCESS(f'Service "{data["titre"]}" créé avec succès'))
+            if os.path.exists(service_img_dir):
+                shutil.rmtree(service_img_dir)
+                self.stdout.write(self.style.SUCCESS(
+                    'Dossier des images supprimé avec succès'))
+
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f"Une erreur est survenue {e}"))
