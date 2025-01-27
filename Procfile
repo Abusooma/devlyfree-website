@@ -1,1 +1,1 @@
-web: gunicorn devlyfree_website.wsgi
+web: mkdir -p staticfiles && python manage.py collectstatic --noinput && python manage.py compress --force && gunicorn devlyfree_website.wsgi
