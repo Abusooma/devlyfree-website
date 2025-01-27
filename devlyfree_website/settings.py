@@ -25,6 +25,8 @@ DEBUG = ENVIRONMENT != 'production'
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
 
+CSRF_TRUSTED_ORIGINS = ['https://devlyfree-website-production.up.railway.app/']
+
 
 # Application definition
 

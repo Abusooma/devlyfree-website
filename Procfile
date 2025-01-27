@@ -1,0 +1,1 @@
+web: gunicorn devlyfree_website.wsgi
