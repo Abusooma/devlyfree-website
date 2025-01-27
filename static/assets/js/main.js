@@ -144,6 +144,8 @@
        updateServiceContent(serviceKey);
        if (history.pushState) {
          window.history.pushState(null, "", link.href);
+       } else {
+         window.location.href = link.href;
        }
      });
    });
