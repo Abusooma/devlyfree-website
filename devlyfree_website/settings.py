@@ -25,7 +25,8 @@ DEBUG = ENVIRONMENT != 'production'
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
 
-CSRF_TRUSTED_ORIGINS = ['https://devlyfree-website-production.up.railway.app/']
+# Sans le slash à la fin
+CSRF_TRUSTED_ORIGINS = ['https://devlyfree-website-production.up.railway.app']
 
 # Pour plus de sécurité, configure aussi ceci
 CSRF_COOKIE_SECURE = True
