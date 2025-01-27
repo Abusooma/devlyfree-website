@@ -142,7 +142,9 @@
      link.addEventListener("click", (e) => {
        const serviceKey = link.getAttribute("data-service");
        updateServiceContent(serviceKey);
-         window.location.href = link.href;
+       if (history.pushState) {
+         window.history.pushState(null, "", link.href);
+       }
      });
    });
 
