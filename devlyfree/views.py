@@ -34,5 +34,9 @@ def porfolio_view(request):
 def blog_view(request):
     return render(request, 'devlyfree/blog.html')
 
+
+def blog_detail_view(request):
+    return render(request, 'devlyfree/blog_detail.html')
+
 def contact_view(request):
     return render(request, 'devlyfree/contact.html')

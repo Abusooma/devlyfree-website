@@ -1,0 +1,495 @@
+{% extends 'main.html' %} 
+
+{% load static %} 
+
+{% block title %} {{ blog.titre }} {% endblock %} 
+
+
+{% block content %}
+
+<!-- Page Title -->
+<div
+  class="page-title dark-background"
+  data-aos="fade"
+  style="background-image: url('{% static 'assets/img/blog-page-title-bg.jpg' %}')"
+>
+  <div class="container">
+    <h1>Blog Details</h1>
+    <nav class="breadcrumbs">
+      <ol>
+        <li><a href="index.html">Home</a></li>
+        <li class="current">Blog Details</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<!-- End Page Title -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <!-- Blog Details Section -->
+      <section id="blog-details" class="blog-details section">
+        <div class="container">
+          <article class="article">
+            <div class="post-img">
+              <img src="{% static 'assets/img/blog/blog-1.jpg' %}" alt="" class="img-fluid" />
+            </div>
+
+            <h2 class="title">
+              Les tendances du développement web à suivre absolument en 2025
+            </h2>
+
+            <div class="meta-top">
+              <ul>
+                <li class="d-flex align-items-center">
+                  <i class="bi bi-person"></i>
+                  <a href="blog-details.html">Sophie Martin</a>
+                </li>
+                <li class="d-flex align-items-center">
+                  <i class="bi bi-clock"></i>
+                  <a href="blog-details.html"
+                    ><time datetime="2025-01-15">Jan 15, 2025</time></a
+                  >
+                </li>
+                <li class="d-flex align-items-center">
+                  <i class="bi bi-chat-dots"></i>
+                  <a href="blog-details.html">8 Commentaires</a>
+                </li>
+              </ul>
+            </div>
+            <!-- End meta top -->
+
+            <div class="content">
+              <p>
+                Le monde du développement web évolue constamment, et 2025
+                apporte son lot de nouvelles tendances et technologies. Dans cet
+                article, nous explorerons les innovations majeures qui façonnent
+                l'avenir du web et comment les entreprises peuvent en tirer
+                profit pour améliorer leur présence en ligne.
+              </p>
+
+              <p>
+                L'intelligence artificielle et le machine learning continuent de
+                révolutionner la façon dont nous concevons et développons les
+                sites web. Des chatbots plus intelligents aux systèmes de
+                recommandation personnalisés, l'IA devient un élément
+                incontournable du développement web moderne.
+              </p>
+
+              <blockquote>
+                <p>
+                  "L'adoption des technologies émergentes n'est plus une option
+                  mais une nécessité pour rester compétitif dans le paysage
+                  numérique actuel."
+                </p>
+              </blockquote>
+
+              <p>
+                Le développement web progressif (PWA) gagne en popularité,
+                offrant une expérience utilisateur similaire aux applications
+                natives tout en conservant les avantages du web. Cette approche
+                permet aux entreprises de toucher un plus large public tout en
+                réduisant les coûts de développement.
+              </p>
+
+              <h3>
+                L'importance croissante de la performance et de l'accessibilité
+              </h3>
+              <p>
+                La vitesse de chargement et l'optimisation des performances
+                deviennent des facteurs critiques pour le succès d'un site web.
+                Google continue de mettre l'accent sur les Core Web Vitals,
+                influençant directement le référencement. Parallèlement,
+                l'accessibilité web n'est plus une option mais une nécessité,
+                tant pour l'inclusion que pour la conformité légale.
+              </p>
+              <img
+                src="{% static 'assets/img/blog/blog-inside-post.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+
+              <h3>Les frameworks JavaScript nouvelle génération</h3>
+              <p>
+                React, Vue.js et Angular continuent d'évoluer, avec des versions
+                plus performantes et plus faciles à utiliser. Les frameworks
+                "meta" comme Next.js et Nuxt.js gagnent en popularité, offrant
+                des solutions complètes pour le développement d'applications web
+                modernes.
+              </p>
+              <p>
+                L'architecture micro-frontends devient une approche viable pour
+                les grandes applications, permettant aux équipes de travailler
+                de manière plus indépendante et d'adopter une approche plus
+                modulaire du développement.
+              </p>
+            </div>
+            <!-- End post content -->
+
+            <div class="meta-bottom">
+              <i class="bi bi-folder"></i>
+              <ul class="cats">
+                <li><a href="#">Développement Web</a></li>
+              </ul>
+
+              <i class="bi bi-tags"></i>
+              <ul class="tags">
+                <li><a href="#">Tendances</a></li>
+                <li><a href="#">Innovation</a></li>
+                <li><a href="#">Technologies</a></li>
+              </ul>
+            </div>
+            <!-- End meta bottom -->
+          </article>
+        </div>
+      </section>
+      <!-- /Blog Details Section -->
+
+      <!-- Blog Author Section -->
+      <section id="blog-author" class="blog-author section">
+        <div class="container">
+          <div class="author-container d-flex align-items-center">
+            <img
+              src="{% static 'assets/img/blog/blog-author.jpg' %}"
+              class="rounded-circle flex-shrink-0"
+              alt=""
+            />
+            <div>
+              <h4>Sophie Martin</h4>
+              <div class="social-links">
+                <a href="https://x.com/#"><i class="bi bi-twitter-x"></i></a>
+                <a href="https://facebook.com/#"
+                  ><i class="bi bi-facebook"></i
+                ></a>
+                <a href="https://instagram.com/#"
+                  ><i class="bi bi-instagram"></i
+                ></a>
+              </div>
+              <p>
+                Experte en développement web avec plus de 10 ans d'expérience,
+                Sophie partage régulièrement ses connaissances sur les dernières
+                tendances technologiques et les meilleures pratiques de
+                développement. Elle est passionnée par l'innovation web et
+                l'amélioration continue des expériences utilisateur.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Blog Author Section -->
+
+      <!-- Blog Comments Section -->
+      <section id="blog-comments" class="blog-comments section">
+        <div class="container">
+          <h4 class="comments-count">8 Commentaires</h4>
+
+          <div id="comment-1" class="comment">
+            <div class="d-flex">
+              <div class="comment-img">
+                <img src="{% static 'assets/img/blog/comments-1.jpg' %}" alt="" />
+              </div>
+              <div>
+                <h5>
+                  <a href="">Marie Dubois</a>
+                  <a href="#" class="reply"
+                    ><i class="bi bi-reply-fill"></i> Répondre</a
+                  >
+                </h5>
+                <time datetime="2025-01-15">15 Jan, 2025</time>
+                <p>
+                  Excellent article qui résume parfaitement les tendances
+                  actuelles. J'aimerais avoir plus de détails sur l'impact de
+                  l'IA dans le développement web, notamment concernant
+                  l'automatisation des tests et du déploiement.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div id="comment-2" class="comment">
+            <div class="d-flex">
+              <div class="comment-img">
+                <img src="{% static 'assets/img/blog/comments-2.jpg' %}" alt="" />
+              </div>
+              <div>
+                <h5>
+                  <a href="">Thomas Lambert</a>
+                  <a href="#" class="reply"
+                    ><i class="bi bi-reply-fill"></i> Répondre</a
+                  >
+                </h5>
+                <time datetime="2025-01-15">15 Jan, 2025</time>
+                <p>
+                  Les PWA sont effectivement l'avenir du web. Nous avons
+                  récemment migré notre application vers cette architecture et
+                  les résultats sont impressionnants.
+                </p>
+              </div>
+            </div>
+
+            <div id="comment-reply-1" class="comment comment-reply">
+              <div class="d-flex">
+                <div class="comment-img">
+                  <img src="{% static 'assets/img/blog/comments-3.jpg' %}" alt="" />
+                </div>
+                <div>
+                  <h5>
+                    <a href="">Sophie Martin</a>
+                    <a href="#" class="reply"
+                      ><i class="bi bi-reply-fill"></i> Répondre</a
+                    >
+                  </h5>
+                  <time datetime="2025-01-15">15 Jan, 2025</time>
+                  <p>
+                    Merci pour votre retour d'expérience Thomas ! Pourriez-vous
+                    partager quelques métriques spécifiques sur les
+                    améliorations de performance que vous avez constatées ? Ce
+                    serait très instructif pour la communauté.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- End comment reply #1-->
+          </div>
+          <!-- End comment #2-->
+
+          <div id="comment-3" class="comment">
+            <div class="d-flex">
+              <div class="comment-img">
+                <img src="{% static 'assets/img/blog/comments-4.jpg' %}" alt="" />
+              </div>
+              <div>
+                <h5>
+                  <a href="">Lucas Moreau</a>
+                  <a href="#" class="reply"
+                    ><i class="bi bi-reply-fill"></i> Répondre</a
+                  >
+                </h5>
+                <time datetime="2025-01-15">15 Jan, 2025</time>
+                <p>
+                  Excellent point sur l'accessibilité web. C'est un aspect
+                  souvent négligé mais crucial. Avez-vous des recommandations
+                  d'outils pour tester l'accessibilité pendant le développement
+                  ?
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- End comment #3 -->
+        </div>
+      </section>
+      <!-- /Blog Comments Section -->
+
+      <!-- Comment Form Section -->
+      <section id="comment-form" class="comment-form section">
+        <div class="container">
+          <form action="">
+            <h4>Laisser un commentaire</h4>
+            <p>
+              Votre adresse e-mail ne sera pas publiée. Les champs obligatoires
+              sont marqués *
+            </p>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <input
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  placeholder="Votre Nom*"
+                />
+              </div>
+              <div class="col-md-6 form-group">
+                <input
+                  name="email"
+                  type="text"
+                  class="form-control"
+                  placeholder="Votre Email*"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col form-group">
+                <input
+                  name="website"
+                  type="text"
+                  class="form-control"
+                  placeholder="Votre Site Web"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col form-group">
+                <textarea
+                  name="comment"
+                  class="form-control"
+                  placeholder="Votre Commentaire*"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">
+                Publier le commentaire
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+      <!-- /Comment Form Section -->
+    </div>
+
+    <div class="col-lg-4 sidebar">
+      <div class="widgets-container">
+        <!-- Search Widget -->
+        <div class="search-widget widget-item">
+          <h3 class="widget-title">Rechercher</h3>
+          <form action="">
+            <input type="text" placeholder="Rechercher..." />
+            <button type="submit" title="Search">
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+        </div>
+        <!--/Search Widget -->
+
+        <!-- Categories Widget -->
+        <div class="categories-widget widget-item">
+          <h3 class="widget-title">Catégories</h3>
+          <ul class="mt-3">
+            <li>
+              <a href="#">Développement Web <span>(25)</span></a>
+            </li>
+            <li>
+              <a href="#">E-commerce <span>(12)</span></a>
+            </li>
+            <li>
+              <a href="#">Applications Mobile <span>(15)</span></a>
+            </li>
+            <li>
+              <a href="#">Design UX/UI <span>(22)</span></a>
+            </li>
+            <li>
+              <a href="#">Technologies <span>(18)</span></a>
+            </li>
+            <li>
+              <a href="#">Innovation <span>(14)</span></a>
+            </li>
+          </ul>
+        </div>
+        <!--/Categories Widget -->
+
+        <!-- Recent Posts Widget -->
+        <div class="recent-posts-widget widget-item">
+          <h3 class="widget-title">Articles Récents</h3>
+
+          <div class="post-item">
+            <img
+              src="{% static 'assets/img/blog/blog-recent-1.jpg' %}"
+              alt=""
+              class="flex-shrink-0"
+            />
+            <div>
+              <h4>
+                <a href="blog-details.html"
+                  >L'impact de l'IA sur le développement web en 2025</a
+                >
+              </h4>
+              <time datetime="2025-01-10">Jan 10, 2025</time>
+            </div>
+          </div>
+
+          <div class="post-item">
+            <img
+              src="{% static 'assets/img/blog/blog-recent-2.jpg' %}"
+              alt=""
+              class="flex-shrink-0"
+            />
+            <div>
+              <h4>
+                <a href="blog-details.html"
+                  >Guide complet du responsive design</a
+                >
+              </h4>
+              <time datetime="2025-01-08">Jan 8, 2025</time>
+            </div>
+          </div>
+
+          <div class="post-item">
+            <img
+              src="{% static 'assets/img/blog/blog-recent-3.jpg' %}"
+              alt=""
+              class="flex-shrink-0"
+            />
+            <div>
+              <h4>
+                <a href="blog-details.html"
+                  >Les meilleures pratiques SEO pour 2025</a
+                >
+              </h4>
+              <time datetime="2025-01-05">Jan 5, 2025</time>
+            </div>
+          </div>
+
+          <div class="post-item">
+            <img
+              src="{% static 'assets/img/blog/blog-recent-4.jpg' %}"
+              alt=""
+              class="flex-shrink-0"
+            />
+            <div>
+              <h4>
+                <a href="blog-details.html"
+                  >Optimisation des performances web</a
+                >
+              </h4>
+              <time datetime="2025-01-03">Jan 3, 2025</time>
+            </div>
+          </div>
+
+          <div class="post-item">
+            <img
+              src="{% static 'assets/img/blog/blog-recent-5.jpg' %}"
+              alt=""
+              class="flex-shrink-0"
+            />
+            <div>
+              <h4>
+                <a href="blog-details.html"
+                  >Comment choisir le bon CMS pour votre projet</a
+                >
+              </h4>
+              <time datetime="2025-01-01">Jan 1, 2025</time>
+            </div>
+          </div>
+        </div>
+        <!--/Recent Posts Widget -->
+
+        <!-- Tags Widget -->
+        <div class="tags-widget widget-item">
+          <h3 class="widget-title">Tags</h3>
+          <ul>
+            <li><a href="#">React</a></li>
+            <li><a href="#">Vue.js</a></li>
+            <li><a href="#">Node.js</a></li>
+            <li><a href="#">PWA</a></li>
+            <li><a href="#">UX/UI</a></li>
+            <li><a href="#">DevOps</a></li>
+            <li><a href="#">API</a></li>
+            <li><a href="#">Frontend</a></li>
+            <li><a href="#">Backend</a></li>
+            <li><a href="#">Mobile</a></li>
+            <li><a href="#">SEO</a></li>
+            <li><a href="#">WordPress</a></li>
+            <li><a href="#">Performance</a></li>
+            <li><a href="#">Sécurité</a></li>
+            <li><a href="#">JavaScript</a></li>
+            <li><a href="#">Cloud</a></li>
+          </ul>
+        </div>
+        <!--/Tags Widget -->
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

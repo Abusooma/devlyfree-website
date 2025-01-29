@@ -3,16 +3,6 @@ from django.conf import settings
 from devlyfree.models import Service
 
 
-# les images sur cloudinary
-
-# https://res.cloudinary.com/dlrowxcaw/image/upload/v1737932816/ui_ux_awvz6t.jpg
-# https://res.cloudinary.com/dlrowxcaw/image/upload/v1737932801/site_web_zqehxl.jpg
-# https://res.cloudinary.com/dlrowxcaw/image/upload/v1737932799/app_web_xyxyui.jpg
-# https://res.cloudinary.com/dlrowxcaw/image/upload/v1737932794/solution_ecom_ona8vq.jpg
-# https://res.cloudinary.com/dlrowxcaw/image/upload/v1737932793/seo_oem3st.jpg
-# https://res.cloudinary.com/dlrowxcaw/image/upload/v1737932793/m_and_su_zfec5z.jpg
-
-
 class Command(BaseCommand):
     help = "Peuple la base de donnée avec les Services"
 
