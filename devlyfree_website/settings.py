@@ -26,7 +26,10 @@ DEBUG = ENVIRONMENT != 'production'
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
 
 # Sans le slash à la fin
-CSRF_TRUSTED_ORIGINS = ['https://devlyfree-website-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://devlyfree-website-production.up.railway.app',
+    'http://devlyfree-website-production.up.railway.app',
+]
 
 # Pour plus de sécurité, configure aussi ceci
 CSRF_COOKIE_SECURE = True
@@ -46,6 +49,8 @@ INSTALLED_APPS = [
     'devlyfree',
     'accounts',
     'django_quill',
+    'cloudinary_storage',  # Ajoutez cette ligne
+    'cloudinary',
 ]
 
 # Configuration complète UNFOLD:
@@ -106,8 +111,6 @@ CLOUDINARY_STORAGE = {
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-
-
 # Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -120,9 +123,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Configurer le cache pour whitenoise
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+# Remplacez le STORAGES actuel par ceci
 STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
