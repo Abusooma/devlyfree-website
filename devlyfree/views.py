@@ -1,6 +1,8 @@
 from cloudinary import uploader
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 from django.http import JsonResponse
+from accounts.models import CustomUser, Profile
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from .models import Service
@@ -67,3 +69,16 @@ def upload_image(request):
                 'error': 'No image file found in request'
             }, status=400)
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+def create_admin_profile(request):
+    try:
+        User = CustomUser
+        admin = User.objects.get(username='admin')  # ou votre username admin
+        if not hasattr(admin, 'profile'):
+            Profile.objects.create(user=admin)
+            return HttpResponse("Profil admin créé avec succès!")
+        else:
+            return HttpResponse("Le profil admin existe déjà!")
+    except Exception as e:
+        return HttpResponse(f"Erreur: {str(e)}")
