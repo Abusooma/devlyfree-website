@@ -1,7 +1,9 @@
 from django.db import models
 from autoslug import AutoSlugField
+from django_quill.fields import QuillField
 from django.conf import settings
 from cloudinary.models import CloudinaryField
+
 
 
 class Service(models.Model):
@@ -27,8 +29,8 @@ class Service(models.Model):
     petite_description = models.TextField()
     grande_description = models.TextField()
     slug = AutoSlugField(
-        populate_from='titre', 
-        editable=True, 
+        populate_from='titre',
+        editable=True,
         always_update=True,
         unique=True,
         blank=True,
@@ -43,7 +45,7 @@ class Service(models.Model):
     def __str__(self):
         return str(self.titre)
 
-    
+
 # Les models pour le blog
 
 class Category(models.Model):
@@ -56,12 +58,12 @@ class Category(models.Model):
         null=True
     )
     meta_title = models.CharField(
-        max_length=60, blank=True, 
+        max_length=60, blank=True,
         help_text="Title tag pour le SEO - Idéalement entre 50 et 60 caractères"
     )
     meta_description = models.CharField(
         max_length=160,
-        blank=True, 
+        blank=True,
         help_text="Meta description pour le SEO - Idéalement entre 150 et 160 caractères"
     )
     created_at = models.DateTimeField(auto_now_add=True)
@@ -72,6 +74,7 @@ class Category(models.Model):
 
     def __str__(self):
         return str(self.nom)
+
 
 class Tag(models.Model):
     nom = models.CharField(max_length=50)
@@ -98,20 +101,30 @@ class Tag(models.Model):
 
     def __str__(self):
         return str(self.nom)
-    
+
 
 class Article(models.Model):
     STATUS = [
-        ('draft','brouillon'),
+        ('draft', 'brouillon'),
         ('published', 'publié')
     ]
 
     titre = models.CharField(max_length=200)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    slug = AutoSlugField(
+        populate_from='titre',
+        editable=True,
+        always_update=True,
+        blank=True,
+        null=True
+    )
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     categorie = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
-    content = models.TextField()
+    content = QuillField(blank=True, null=True)
+
     featured_image = CloudinaryField()
+
     featured_image_alt = models.CharField(
         max_length=100,
         help_text="Texte alternatif pour l'image principale (SEO)"
@@ -144,7 +157,5 @@ class Article(models.Model):
 
     # Champs pour Open Graph ....
 
-
     def __str__(self):
         return str(self.titre)
-    

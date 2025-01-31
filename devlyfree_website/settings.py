@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "compressor",
     'devlyfree',
     'accounts',
+    'django_quill',
 ]
 
 # Configuration complète UNFOLD:
@@ -71,6 +72,31 @@ UNFOLD = {
     }
 }
 
+# Configuration Quill Editor
+QUILL_CONFIGS = {
+    'default': {
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                [{'header': [1, 2, 3, 4, 5, 6, False]}],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
+                [{'list': 'ordered'}, {'list': 'bullet'}],
+                [{'script': 'sub'}, {'script': 'super'}],
+                [{'indent': '-1'}, {'indent': '+1'}],
+                [{'direction': 'rtl'}],
+                [{'size': ['small', False, 'large', 'huge']}],
+                [{'header': [1, 2, 3, 4, 5, 6, False]}],
+                [{'color': []}, {'background': []}],
+                [{'font': []}],
+                ['clean'],
+                ['link', 'image', 'video']
+            ]
+        }
+    }
+}
+
 # Configuration de Cloudinary
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
@@ -78,8 +104,9 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': env('CLOUDINARY_API_SECRET')
 }
 
-
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
 
 # Middleware
 MIDDLEWARE = [

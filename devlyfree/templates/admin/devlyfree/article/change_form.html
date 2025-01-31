@@ -1,0 +1,73 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Attendre que Quill soit complètement chargé
+        setTimeout(function() {
+            const editors = document.querySelectorAll('.django-quill-widget-content');
+            editors.forEach(function(editor) {
+                if (!editor.classList.contains('quill-initialized')) {
+                    const quill = new Quill(editor, {
+                        theme: 'snow',
+                        modules: {
+                            toolbar: [
+                                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                                ['bold', 'italic', 'underline', 'strike'],
+                                ['blockquote', 'code-block'],
+                                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                                [{ 'script': 'sub' }, { 'script': 'super' }],
+                                [{ 'indent': '-1' }, { 'indent': '+1' }],
+                                [{ 'direction': 'rtl' }],
+                                [{ 'size': ['small', false, 'large', 'huge'] }],
+                                [{ 'color': [] }, { 'background': [] }],
+                                [{ 'font': [] }],
+                                ['clean'],
+                                ['link', 'image', 'video']
+                            ]
+                        }
+                    });
+
+                    // Gestionnaire d'upload d'images personnalisé
+                    const toolbar = editor.querySelector('.ql-toolbar');
+                    const imageButton = toolbar.querySelector('button.ql-image');
+                    
+                    if (imageButton) {
+                        imageButton.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const input = document.createElement('input');
+                            input.setAttribute('type', 'file');
+                            input.setAttribute('accept', 'image/*');
+                            input.click();
+
+                            input.onchange = async () => {
+                                const file = input.files[0];
+                                const formData = new FormData();
+                                formData.append('image', file);
+
+                                try {
+                                    const response = await fetch('/quill/upload/', {
+                                        method: 'POST',
+                                        body: formData
+                                    });
+                                    const result = await response.json();
+                                    if (result.url) {
+                                        const range = quill.getSelection(true);
+                                        quill.insertEmbed(range.index, 'image', result.url);
+                                    }
+                                } catch (error) {
+                                    console.error('Upload failed:', error);
+                                }
+                            };
+                        });
+                    }
+
+                    editor.classList.add('quill-initialized');
+                }
+            });
+        }, 1000); // Attendre 1 seconde pour s'assurer que tout est chargé
+    });
+</script>
+{% endblock %}
