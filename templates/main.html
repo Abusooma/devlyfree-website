@@ -16,7 +16,7 @@
 </title>
     <meta name="description" content="{% if meta_description %}{% block meta_description %}{{ meta_description }}{% endblock %}{% else %}Bienvenue sur notre site {% endif %}"
      />
-    <meta name="keywords" content="{% if meta_keywords %} {% block meta_keywords %} {{ meta_keywords }}{% endblock %} {% else %}Conception web, design graphic, boutique en ligne, SEO {% endif %}" />
+    <meta name="keywords" content="{% if meta_keywords %}{% block meta_keywords %}{{ meta_keywords }}{% endblock %}{% else %}Conception web, design graphic, boutique en ligne, SEO {% endif %}" />
 
     <!-- Favicons -->
     <link href="{% static 'assets/img/devly_logo.png' %}" rel="icon" />
