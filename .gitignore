@@ -5,6 +5,7 @@ __pycache__/
 *.pyc
 staticfiles/
 static/CACHE/
+*.md
 
 # C extensions
 *.so

@@ -49,31 +49,19 @@ INSTALLED_APPS = [
     'devlyfree',
     'accounts',
     'django_quill',
-    'cloudinary_storage',  # Ajoutez cette ligne
+    'cloudinary_storage',
     'cloudinary',
 ]
 
-# Configuration complète UNFOLD:
+# Configuration complète UNFOLD
+
 UNFOLD = {
     "SITE_TITLE": "DevlyFree",
     "SITE_HEADER": "DevlyFree Administration",
     "SITE_URL": "/",
     "SIDEBAR": {
         "show_search": True,
-        "show_all_applications": True,
-        "navigation": [
-            {
-                "title": "Services",
-                "icon": "bi bi-briefcase",
-                "items": [
-                    {
-                        "title": "Gérer les services",
-                        "link": "devlyfree/service/",
-                        "model": "devlyfree.service"
-                    }
-                ]
-            },
-        ]
+        "show_all_applications": True
     }
 }
 
@@ -121,6 +109,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'devlyfree.middleware.SEOMiddleware',
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -166,7 +155,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'devlyfree_website.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -244,30 +232,30 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'format': '{levelname} {asctime} {module} {message}',
             'style': '{',
         },
     },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
         },
+    },
+    'root': {  # Configuration du logger racine
+        'handlers': ['console'],
+        'level': 'DEBUG',
     },
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'ERROR',
+            'level': 'INFO',
             'propagate': False,
         },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'ERROR',
+        'devlyfree': {  # Votre application
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
     },
 }

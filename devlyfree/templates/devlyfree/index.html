@@ -2,7 +2,9 @@
 
 {% load static %}
 
-{% block title %} Acceuil {% endblock %} 
+{% block meta_title %}
+    {{ meta_title }}
+{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -334,7 +336,7 @@
             solutions web innovantes qui répondent parfaitement à vos besoins et
             objectifs commerciaux.
           </p>
-          <a href="#about" class="btn-get-started">Commencer un Projet</a>
+          <a href="{% url 'contact' %}" class="btn-get-started">Commencer un Projet</a>
         </div>
       </div>
     </div>

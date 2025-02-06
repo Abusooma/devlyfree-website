@@ -2,7 +2,7 @@
 
 {% load static %} 
 
-{% block title %} Blog {% endblock %} 
+{% block meta_title %} Blog {% endblock %} 
 
 {% block content %}
 
@@ -44,7 +44,7 @@
                 <p class="post-category">Développement Web</p>
 
                 <h2 class="title">
-                  <a href="blog-details.html"
+                  <a href="{% url 'blog_detail' %}"
                     >Les tendances du développement web à suivre en 2025</a
                   >
                 </h2>
@@ -79,7 +79,7 @@
                 <p class="post-category">E-commerce</p>
 
                 <h2 class="title">
-                  <a href="blog-details.html"
+                  <a href="{% url 'blog_detail' %}"
                     >Comment optimiser votre site e-commerce pour augmenter vos
                     ventes</a
                   >
@@ -115,7 +115,7 @@
                 <p class="post-category">Applications Mobile</p>
 
                 <h2 class="title">
-                  <a href="blog-details.html"
+                  <a href="{% url 'blog_detail' %}"
                     >Développement d'applications mobiles : Native vs Hybride -
                     Comment choisir ?</a
                   >
@@ -151,7 +151,7 @@
                 <p class="post-category">Design UX/UI</p>
 
                 <h2 class="title">
-                  <a href="blog-details.html"
+                  <a href="{% url 'blog_detail' %}"
                     >Les principes essentiels du design UX/UI pour un site web
                     performant</a
                   >
@@ -187,7 +187,7 @@
                 <p class="post-category">SEO</p>
 
                 <h2 class="title">
-                  <a href="blog-details.html"
+                  <a href="{% url 'blog_detail' %}"
                     >Stratégies SEO avancées pour améliorer votre visibilité en
                     ligne</a
                   >
@@ -223,7 +223,7 @@
                 <p class="post-category">Technologie</p>
 
                 <h2 class="title">
-                  <a href="blog-details.html"
+                  <a href="{% url 'blog_detail' %}"
                     >L'intelligence artificielle dans le développement web
                     moderne</a
                   >

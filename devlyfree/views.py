@@ -6,10 +6,21 @@ from django.shortcuts import get_object_or_404
 from .models import Service
 
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def home_view(request):
     services = Service.objects.all()
-    return render(request, 'devlyfree/index.html', {'services': services})
+    context = {'services': services}
+
+    if hasattr(request, 'seo_data') and request.seo_data is not None:
+        context.update(request.seo_data)
+    else:
+        logger.debug("No SEO data found in request")
+
+    return render(request, 'devlyfree/index.html', context)
 
 def about_view(request):
     return render(request, 'devlyfree/about.html')

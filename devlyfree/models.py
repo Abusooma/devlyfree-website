@@ -5,6 +5,46 @@ from django.conf import settings
 from cloudinary.models import CloudinaryField
 
 
+class PageSEO(models.Model):
+    CHOIX_PAGES = [
+        ('home', 'Accueil'),
+        ('about', 'À propos'),
+        ('services', 'Liste des Services'),
+        ('portfolio', 'Liste des Projets'),
+        ('blog', 'Blog'),
+        ('contact', 'Contact')
+    ]
+
+    page = models.CharField(
+        max_length=20,
+        unique=True,
+        choices=CHOIX_PAGES
+    )
+
+    meta_title = models.CharField(
+        max_length=60,
+        help_text="Title tag pour le SEO - Idéalement entre 50 et 60 caractères"
+    )
+    meta_description = models.CharField(
+        max_length=160,
+        blank=True,
+        help_text="Meta description pour le SEO - Idéalement entre 150 et 160 caractères"
+    )
+    meta_keywords = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Mots-clés séparés par des virgules"
+    )
+
+    class Meta:
+        verbose_name = "SEO Page"
+        verbose_name_plural = "SEO Pages"
+        ordering = ['page']
+
+    def __str__(self):
+        return f"SEO pour {self.get_page_display()}"
+
+
 
 class Service(models.Model):
     ICON_CHOICES = [
@@ -42,12 +82,25 @@ class Service(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
+    # Les champs pour le SEO
+    meta_title = models.CharField(
+        max_length=60,
+        blank=True,
+        null=True,
+        help_text="Title tag pour le SEO - Idéalement entre 50 et 60 caractères"
+    )
+    meta_description = models.CharField(
+        max_length=160,
+        blank=True,
+        null=True,
+        help_text="Meta description pour le SEO - Idéalement entre 150 et 160 caractères"
+    )
+
     def __str__(self):
         return str(self.titre)
 
 
 # Les models pour le blog
-
 class Category(models.Model):
     nom = models.CharField(max_length=100)
     slug = AutoSlugField(

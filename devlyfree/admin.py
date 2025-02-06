@@ -1,8 +1,48 @@
-from .models import Service, Category, Tag, Article
+from .models import Service, Category, Tag, Article, PageSEO
 from django.contrib import admin
 from unfold.admin import ModelAdmin
-from .models import Service
 from django.utils.html import format_html
+
+
+@admin.register(PageSEO)
+class PageSEOAdmin(ModelAdmin):
+    list_display = ['page_display', 'meta_title', 'seo_status']
+    list_display_links = ['page_display']
+    search_fields = ['meta_title', 'meta_description']
+
+    fieldsets = (
+        ('Page', {
+            'fields': ('page',),
+            'classes': ('wide',)
+        }),
+        ('SEO', {
+            'fields': ('meta_title', 'meta_description', 'meta_keywords'),
+            'classes': ('wide',)
+        }),
+    )
+
+    def page_display(self, obj):
+        return obj.get_page_display()
+    page_display.short_description = "Page"
+
+    def seo_status(self, obj):
+        status = []
+        if not obj.meta_title:
+            status.append('❌ Meta Title')
+        if not obj.meta_description:
+            status.append('❌ Meta Description')
+        if not obj.meta_keywords:
+            status.append('❌ Keywords')
+
+        if not status:
+            return format_html('<span style="color: green;">✓ SEO Complet</span>')
+        return format_html('<span style="color: red;">{}</span>', ', '.join(status))
+    seo_status.short_description = 'Statut SEO'
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return ('page',)
+        return ()
 
 
 @admin.register(Service)

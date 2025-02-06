@@ -1,12 +1,22 @@
 {% load compress static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Devlyfree - {% block title %}{% endblock %} </title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+
+    <!-- SEO meta tag -->
+
+    <title>
+      {% if meta_title %}
+        {% block meta_title %}{% endblock %}
+      {% else %}
+          DevLyFree - Solutions Web Innovantes
+      {% endif %}
+</title>
+    <meta name="description" content="{% if meta_description %}{% block meta_description %}{{ meta_description }}{% endblock %}{% else %}Bienvenue sur notre site {% endif %}"
+     />
+    <meta name="keywords" content="{% if meta_keywords %} {% block meta_keywords %} {{ meta_keywords }}{% endblock %} {% else %}Conception web, design graphic, boutique en ligne, SEO {% endif %}" />
 
     <!-- Favicons -->
     <link href="{% static 'assets/img/devly_logo.png' %}" rel="icon" />
