@@ -17,18 +17,21 @@ def home_view(request):
 
     if hasattr(request, 'seo_data') and request.seo_data is not None:
         context.update(request.seo_data)
-    else:
-        logger.debug("No SEO data found in request")
-
     return render(request, 'devlyfree/index.html', context)
 
 def about_view(request):
-    return render(request, 'devlyfree/about.html')
+    context = {}
+    if hasattr(request, 'seo_data') and request.seo_data is not None:
+        context.update(request.seo_data)
+    return render(request, 'devlyfree/about.html', context)
 
 
 def service_view(request):
     services = Service.objects.all()
-    return render(request, 'devlyfree/services.html', {'services': services})
+    context = {'services': services}
+    if hasattr(request, 'seo_data') and request.seo_data is not None:
+        context.update(request.seo_data)
+    return render(request, 'devlyfree/services.html', context)
 
 
 def service_detail_view(request, slug):
@@ -39,14 +42,22 @@ def service_detail_view(request, slug):
         'all_services': all_services,
         'selected_slug': slug
     }
+    if hasattr(request, 'seo_data') and request.seo_data is not None:
+        context.update(request.seo_data)
     return render(request, 'devlyfree/service_detail.html', context=context)
 
 
 def porfolio_view(request):
-    return render(request, 'devlyfree/portfolio.html')
+    context = {}
+    if hasattr(request, 'seo_data') and request.seo_data is not None:
+        context.update(request.seo_data)
+    return render(request, 'devlyfree/portfolio.html', context)
 
 def blog_view(request):
-    return render(request, 'devlyfree/blog.html')
+    context = {}
+    if hasattr(request, 'seo_data') and request.seo_data is not None:
+        context.update(request.seo_data)
+    return render(request, 'devlyfree/blog.html', context)
 
 
 def blog_detail_view(request):
@@ -54,6 +65,9 @@ def blog_detail_view(request):
 
 
 def contact_view(request):
+    context = {}
+    if hasattr(request, 'seo_data') and request.seo_data is not None:
+        context.update(request.seo_data)
     return render(request, 'devlyfree/contact.html')
 
 

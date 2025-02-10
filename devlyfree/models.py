@@ -95,6 +95,12 @@ class Service(models.Model):
         null=True,
         help_text="Meta description pour le SEO - Idéalement entre 150 et 160 caractères"
     )
+    meta_keywords = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Mots-clés séparés par des virgules"
+    )
 
     def __str__(self):
         return str(self.titre)
