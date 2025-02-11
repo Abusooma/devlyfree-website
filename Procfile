@@ -1,1 +1,1 @@
-web: mkdir -p staticfiles && python manage.py collectstatic --noinput && python manage.py compress --force && gunicorn devlyfree_website.wsgi
+web: mkdir -p staticfiles && python manage.py collectstatic --noinput && python manage.py compress --force && gunicorn devlyfree_website.wsgi --workers 4 --timeout 120 --keep-alive 5 --max-requests 1000

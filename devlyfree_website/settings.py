@@ -94,7 +94,8 @@ QUILL_CONFIGS = {
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': env('CLOUDINARY_API_KEY'),
-    'API_SECRET': env('CLOUDINARY_API_SECRET')
+    'API_SECRET': env('CLOUDINARY_API_SECRET'),
+    'SECURE': True
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -112,7 +113,7 @@ MIDDLEWARE = [
     'devlyfree.middleware.SEOMiddleware',
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+WHITENOISE_MAX_AGE = 31536000  # 1 an en secondes
 
 # Remplacez le STORAGES actuel par ceci
 STORAGES = {
@@ -124,16 +125,23 @@ STORAGES = {
     },
 }
 
-# Configuration de django-compressor pour le cache
-
+# Configuration de base des finders
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 )
 
+# Configuration de django-compressor
 COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = ENVIRONMENT != 'development'
+COMPRESS_OFFLINE = ENVIRONMENT != 'production'
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.rCSSMinFilter'
+]
+
+COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
+COMPRESS_STORAGE = 'compressor.storage.GzipCompressorFileStorage'
 
 ROOT_URLCONF = 'devlyfree_website.urls'
 
