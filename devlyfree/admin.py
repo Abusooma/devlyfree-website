@@ -49,10 +49,11 @@ class PageSEOAdmin(ModelAdmin):
 class ServiceAdmin(ModelAdmin):
     compressed_fields = ['grande_description']
 
-    list_display = ['titre', 'icon_preview', 'petite_description']
+    list_display = ['titre', 'icon_preview',
+                    'image_preview_list']
     list_display_links = ['titre', 'icon_preview']
     search_fields = ['titre']
-    readonly_fields = ['icon_live_preview']
+    readonly_fields = ['icon_live_preview', 'image_preview']
 
     fieldsets = (
         ('Informations principales', {
@@ -60,7 +61,7 @@ class ServiceAdmin(ModelAdmin):
                 'titre',
                 'slug',
                 ('icone', 'icon_live_preview', 'icone_couleur'),
-                'image',
+                ('image', 'image_preview'),
             ),
             'classes': ('wide',)
         }),
@@ -81,7 +82,7 @@ class ServiceAdmin(ModelAdmin):
 
     def icon_preview(self, obj):
         return format_html(
-            '<div style="font-size:10px;"><i class="{}" style="color:{}"></i> {}</div>',
+            '<div style="font-size:17px;"><i class="{}" style="color:{}"></i> {}</div>',
             obj.icone, obj.icone_couleur, obj.titre
         )
     icon_preview.short_description = "Service"
@@ -94,6 +95,40 @@ class ServiceAdmin(ModelAdmin):
             )
         return ""
     icon_live_preview.short_description = "Aperçu de l'icône"
+
+    def image_preview(self, obj):
+        if obj and obj.image:
+            return format_html(
+                """
+                <div style="margin: 10px 0;">
+                    <img src="{}" alt="{}" style="max-width: 400px; height: auto; 
+                        border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <p style="color: #666; margin-top: 5px; font-size: 0.9em;">
+                        Texte alternatif: <span style="font-style: italic;">{}</span>
+                    </p>
+                </div>
+                """,
+                obj.image.url,
+                obj.titre,
+                obj.titre
+            )
+        
+    image_preview.short_description = "Aperçu de l'image"
+
+    def image_preview_list(self, obj):
+        if obj and obj.image:
+            return format_html(
+                """
+                <div style="text-align: center;">
+                    <img src="{}" alt="{}" style="max-width: 80px; height: auto; 
+                        border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                </div>
+                """,
+                obj.image.url,
+                obj.titre
+            )
+        
+    image_preview_list.short_description = "Image"
 
     class Media:
         css = {
@@ -189,11 +224,11 @@ class TagAdmin(ModelAdmin):
 @admin.register(Article)
 class ArticleAdmin(ModelAdmin):
     compressed_fields = ['titre']
-    list_display = ['titre', 'author', 'categorie',
-                    'status', 'published_at', 'seo_status']
+    list_display = ['titre', 'author', 'categorie', 'status', 'published_at', 'seo_status']
     list_filter = ['status', 'categorie', 'author', 'created_at']
     search_fields = ['titre', 'content', 'meta_title', 'meta_description']
     filter_horizontal = ['tags']
+    readonly_fields = ['featured_image_preview']
 
     fieldsets = (
         ('Informations principales', {
@@ -211,7 +246,7 @@ class ArticleAdmin(ModelAdmin):
             'classes': ('wide',)
         }),
         ('Médias', {
-            'fields': ('featured_image', 'featured_image_alt'),
+            'fields': ('featured_image', 'featured_image_preview', 'featured_image_alt'),
             'classes': ('wide',)
         }),
         ('Catégorisation', {
@@ -228,6 +263,44 @@ class ArticleAdmin(ModelAdmin):
             'classes': ('collapse', 'wide',)
         }),
     )
+
+    def featured_image_preview(self, obj):
+        if obj.featured_image:
+            return format_html(
+                """
+                <div style="margin: 10px 0;">
+                    <img src="{}" alt="{}" style="max-width: 400px; height: auto; 
+                        border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <p style="color: #666; margin-top: 5px; font-size: 0.9em;">
+                        Texte alternatif: <span style="font-style: italic;">{}</span>
+                    </p>
+                </div>
+                """,
+                obj.featured_image.url,
+                obj.featured_image_alt or "Image de l'article",
+                obj.featured_image_alt or "Non défini"
+            )
+        return format_html(
+            '<div style="color: #999; font-style: italic; margin: 10px 0;">Aucune image</div>'
+        )
+    featured_image_preview.short_description = "Aperçu de l'image"
+
+    def featured_image_preview_list(self, obj):
+        if obj.featured_image:
+            return format_html(
+                """
+                <div style="text-align: center;">
+                    <img src="{}" alt="{}" style="max-width: 100px; height: auto; 
+                        border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                </div>
+                """,
+                obj.featured_image.url,
+                obj.featured_image_alt or "Image de l'article"
+            )
+        return format_html(
+            '<span style="color: #999; font-style: italic;">Aucune image</span>'
+        )
+    featured_image_preview_list.short_description = "Image"
 
     def seo_status(self, obj):
         status = []

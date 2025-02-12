@@ -42,8 +42,8 @@
                                 </h2>
 
                                 <div class="d-flex align-items-center">
-                                    {% if article.author.profile_image %}
-                                        <img src="{{ article.author.profile_image.url }}" alt="Avatar de {{ article.author.get_full_name }}" class="img-fluid post-author-img flex-shrink-0" />
+                                    {% if article.author.profile.profile_image %}
+                                        <img src="{{ article.author.profile.profile_image.url }}" alt="Avatar de {{ article.author.get_full_name }}" class="img-fluid post-author-img flex-shrink-0" />
                                     {% endif %}
                                     <div class="post-meta">
                                         <p class="post-author">{{ article.author.get_full_name }}</p>
