@@ -179,7 +179,7 @@ class Article(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     categorie = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='articles')
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, related_name='articles')
     content = QuillField(blank=True, null=True)
 
     featured_image = CloudinaryField()

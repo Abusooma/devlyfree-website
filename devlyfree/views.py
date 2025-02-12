@@ -1,4 +1,7 @@
+from .models import Article, Category, Tag
+from django.db.models import Count
 from cloudinary import uploader
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -53,19 +56,79 @@ def porfolio_view(request):
         context.update(request.seo_data)
     return render(request, 'devlyfree/portfolio.html', context)
 
+
 def blog_view(request):
-    articles = (
-        Article.objects.select_related('categorie', 'author')
-        .prefetch_related('tags')
+    # Requête de base optimisée pour les articles avec leurs relations
+    articles_list = (
+        Article.objects
+        .select_related('categorie', 'author')  # Pour les relations ForeignKey
+        .prefetch_related('tags')  # Pour la relation ManyToMany
         .filter(status='published')
         .order_by('-published_at')
     )
 
-    context = {'articles': articles}
+    # Recherche
+    query = request.GET.get('q')
+    if query:
+        articles_list = articles_list.filter(titre__icontains=query)
+
+    # Filtrage par catégorie
+    category = request.GET.get('category')
+    if category:
+        articles_list = articles_list.filter(categorie__slug=category)
+
+    # Filtrage par tag
+    tag = request.GET.get('tag')
+    if tag:
+        articles_list = articles_list.filter(tags__slug=tag)
+
+    # Pagination
+    paginator = Paginator(articles_list, 6)  # 6 articles par page
+    page = request.GET.get('page')
+    try:
+        articles = paginator.page(page)
+    except PageNotAnInteger:
+        articles = paginator.page(1)
+    except EmptyPage:
+        articles = paginator.page(paginator.num_pages)
+
+    # Requêtes optimisées pour les widgets
+    categories = (
+        Category.objects
+        .annotate(
+            article_count=Count(
+                'articles',
+                filter=Article.objects.filter(status='published').values('id')
+            )
+        )
+        .order_by('nom')
+    )
+
+    tags = Tag.objects.annotate(
+        article_count=Count(
+            'articles',
+            filter=Article.objects.filter(status='published').values('id')
+        )
+    ).order_by('-article_count')[:20]  # Limiter aux 20 tags les plus utilisés
+
+    recent_articles = (
+        Article.objects
+        .select_related('author')
+        .filter(status='published')
+        .order_by('-published_at')[:5]
+    )
+
+    # Contexte
+    context = {
+        'articles': articles,
+        'categories': categories,
+        'tags': tags,
+        'recent_articles': recent_articles,
+    }
 
     if hasattr(request, 'seo_data') and request.seo_data is not None:
         context.update(request.seo_data)
-    
+
     return render(request, 'devlyfree/blog.html', context)
 
 
