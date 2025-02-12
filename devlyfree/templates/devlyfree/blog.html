@@ -32,57 +32,46 @@
     <div class="col-lg-8">
       <!-- Blog Posts Section -->
       <section id="blog-posts" class="blog-posts section">
-        <div class="container">
-          <div class="row gy-4">
-            {% for article in articles %}
-            <div class="col-lg-6">
-              <article>
-                <div class="post-img">
-                  {% if article.featured_image %}
-                  <img
-                    src="{{ article.featured_image.url }}"
-                    alt="{{ article.featured_image_alt|default:article.titre }}"
-                    class="img-fluid"
-                  />
-                  {% endif %}
+                <div class="container">
+                    <div class="row gy-4">
+                        {% for article in articles %}
+                        <div class="col-lg-6">
+                            <article>
+                                <div class="post-img">
+                                    {% if article.featured_image %}
+                                        <img src="{{ article.featured_image.url }}" alt="{{ article.featured_image_alt|default:article.titre }}" class="img-fluid" />
+                                    {% endif %}
+                                </div>
+
+                                <p class="post-category">{{ article.categorie.nom }}</p>
+
+                                <h2 class="title">
+                                    <a href="{% url 'blog_detail' article.slug %}">{{ article.titre }}</a>
+                                </h2>
+
+                                <div class="d-flex align-items-center">
+                                    {% if article.author.profile_image %}
+                                        <img src="{{ article.author.profile_image.url }}" alt="Avatar de {{ article.author.get_full_name }}" class="img-fluid post-author-img flex-shrink-0" />
+                                    {% endif %}
+                                    <div class="post-meta">
+                                        <p class="post-author">{{ article.author.get_full_name }}</p>
+                                        <p class="post-date">
+                                            <time datetime="{{ article.published_at|date:'Y-m-d' }}">
+                                                {{ article.published_at|date:"d M Y" }}
+                                            </time>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        {% empty %}
+                        <div class="col-12">
+                            <p class="text-center">Aucun article disponible pour le moment.</p>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
-
-                <p class="post-category">{{ article.categorie.nom }}</p>
-
-                <h2 class="title">
-                  <a href="{% url 'blog_detail' %}"
-                    >{{ article.titre }}</a
-                  >
-                </h2>
-
-                <div class="d-flex align-items-center">
-                  {% if article.author.image %}
-                  <img
-                    src="{{ article.author.image.url }}"
-                    alt="Avatar de {{ article.author.get_full_name }}"
-                    class="img-fluid post-author-img flex-shrink-0"
-                  />
-                  {% endif %}
-                  <div class="post-meta">
-                    <p class="post-author">{{ article.author.get_full_name }}</p>
-                    <p class="post-date">
-                      <time datetime="{{ article.published_at|date:'Y-m-d'}}">
-                        {{ article.published_at|date:'d M Y'}}
-                      </time>
-                    </p>
-                  </div>
-                </div>
-              </article>
-            </div>
-            {% empty %}
-                  <div class="col-12">
-                      <p class="text-center">Aucun article disponible pour le moment.</p>
-                  </div>
-            {% endfor %}
-            <!-- End post list item -->
-          </div>
-        </div>
-      </section>
+            </section>
       <!-- /Blog Posts Section -->
 
       <!-- Blog Pagination Section -->
