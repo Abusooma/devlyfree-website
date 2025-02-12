@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import Service
+from .models import Service, Article, Category, Tag
 
 
 import logging
@@ -44,7 +44,7 @@ def service_detail_view(request, slug):
     }
     if hasattr(request, 'seo_data') and request.seo_data is not None:
         context.update(request.seo_data)
-    return render(request, 'devlyfree/service_detail.html', context=context)
+    return render(request, 'devlyfree/service_detail.html', context)
 
 
 def porfolio_view(request):
@@ -54,9 +54,18 @@ def porfolio_view(request):
     return render(request, 'devlyfree/portfolio.html', context)
 
 def blog_view(request):
-    context = {}
+    articles = (
+        Article.objects.select_related('categorie', 'author')
+        .prefetch_related('tags')
+        .filter(status='published')
+        .order_by('-published_at')
+    )
+
+    context = {'articles': articles}
+
     if hasattr(request, 'seo_data') and request.seo_data is not None:
         context.update(request.seo_data)
+    
     return render(request, 'devlyfree/blog.html', context)
 
 
@@ -68,7 +77,7 @@ def contact_view(request):
     context = {}
     if hasattr(request, 'seo_data') and request.seo_data is not None:
         context.update(request.seo_data)
-    return render(request, 'devlyfree/contact.html')
+    return render(request, 'devlyfree/contact.html', context)
 
 
 @csrf_exempt
@@ -82,12 +91,12 @@ def upload_image(request):
                     'url': result['secure_url']
                 })
             except Exception as e:
-                print(f"Upload error: {str(e)}")  # Pour le débogage
+                print(f"Upload error: {str(e)}")
                 return JsonResponse({
                     'error': str(e)
                 }, status=500)
         else:
-            print("No image file found in request")  # Pour le débogage
+            print("No image file found in request")
             return JsonResponse({
                 'error': 'No image file found in request'
             }, status=400)

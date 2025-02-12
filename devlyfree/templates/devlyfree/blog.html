@@ -6,6 +6,7 @@
     {{ meta_title }}
 {% endblock %}
 
+
 {% block content %}
 
 <!-- Page Title -->
@@ -33,219 +34,52 @@
       <section id="blog-posts" class="blog-posts section">
         <div class="container">
           <div class="row gy-4">
+            {% for article in articles %}
             <div class="col-lg-6">
               <article>
                 <div class="post-img">
+                  {% if article.featured_image %}
                   <img
-                    src="{% static 'assets/img/blog/blog-1.jpg' %}"
-                    alt=""
+                    src="{{ article.featured_image.url }}"
+                    alt="{{ article.featured_image_alt|default:article.titre }}"
                     class="img-fluid"
                   />
+                  {% endif %}
                 </div>
 
-                <p class="post-category">Développement Web</p>
+                <p class="post-category">{{ article.categorie.nom }}</p>
 
                 <h2 class="title">
                   <a href="{% url 'blog_detail' %}"
-                    >Les tendances du développement web à suivre en 2025</a
+                    >{{ article.titre }}</a
                   >
                 </h2>
 
                 <div class="d-flex align-items-center">
+                  {% if article.author.image %}
                   <img
-                    src="{% static 'assets/img/blog/blog-author.jpg' %}"
-                    alt=""
+                    src="{{ article.author.image.url }}"
+                    alt="Avatar de {{ article.author.get_full_name }}"
                     class="img-fluid post-author-img flex-shrink-0"
                   />
+                  {% endif %}
                   <div class="post-meta">
-                    <p class="post-author">Sophie Martin</p>
+                    <p class="post-author">{{ article.author.get_full_name }}</p>
                     <p class="post-date">
-                      <time datetime="2025-01-15">Jan 15, 2025</time>
+                      <time datetime="{{ article.published_at|date:'Y-m-d'}}">
+                        {{ article.published_at|date:'d M Y'}}
+                      </time>
                     </p>
                   </div>
                 </div>
               </article>
             </div>
-            <!-- End post list item -->
-
-            <div class="col-lg-6">
-              <article>
-                <div class="post-img">
-                  <img
-                    src="{% static 'assets/img/blog/blog-2.jpg' %}"
-                    alt=""
-                    class="img-fluid"
-                  />
-                </div>
-
-                <p class="post-category">E-commerce</p>
-
-                <h2 class="title">
-                  <a href="{% url 'blog_detail' %}"
-                    >Comment optimiser votre site e-commerce pour augmenter vos
-                    ventes</a
-                  >
-                </h2>
-
-                <div class="d-flex align-items-center">
-                  <img
-                    src="{% static 'assets/img/blog/blog-author-2.jpg' %}"
-                    alt=""
-                    class="img-fluid post-author-img flex-shrink-0"
-                  />
-                  <div class="post-meta">
-                    <p class="post-author">Thomas Dubois</p>
-                    <p class="post-date">
-                      <time datetime="2025-01-10">Jan 10, 2025</time>
-                    </p>
+            {% empty %}
+                  <div class="col-12">
+                      <p class="text-center">Aucun article disponible pour le moment.</p>
                   </div>
-                </div>
-              </article>
-            </div>
-            <!-- End post list item -->
-
-            <div class="col-lg-6">
-              <article>
-                <div class="post-img">
-                  <img
-                    src="{% static 'assets/img/blog/blog-3.jpg' %}"
-                    alt=""
-                    class="img-fluid"
-                  />
-                </div>
-
-                <p class="post-category">Applications Mobile</p>
-
-                <h2 class="title">
-                  <a href="{% url 'blog_detail' %}"
-                    >Développement d'applications mobiles : Native vs Hybride -
-                    Comment choisir ?</a
-                  >
-                </h2>
-
-                <div class="d-flex align-items-center">
-                  <img
-                    src="{% static 'assets/img/blog/blog-author-3.jpg' %}"
-                    alt=""
-                    class="img-fluid post-author-img flex-shrink-0"
-                  />
-                  <div class="post-meta">
-                    <p class="post-author">Julie Bernard</p>
-                    <p class="post-date">
-                      <time datetime="2025-01-05">Jan 5, 2025</time>
-                    </p>
-                  </div>
-                </div>
-              </article>
-            </div>
-            <!-- End post list item -->
-
-            <div class="col-lg-6">
-              <article>
-                <div class="post-img">
-                  <img
-                    src="{% static 'assets/img/blog/blog-4.jpg' %}"
-                    alt=""
-                    class="img-fluid"
-                  />
-                </div>
-
-                <p class="post-category">Design UX/UI</p>
-
-                <h2 class="title">
-                  <a href="{% url 'blog_detail' %}"
-                    >Les principes essentiels du design UX/UI pour un site web
-                    performant</a
-                  >
-                </h2>
-
-                <div class="d-flex align-items-center">
-                  <img
-                    src="{% static 'assets/img/blog/blog-author-4.jpg' %}"
-                    alt=""
-                    class="img-fluid post-author-img flex-shrink-0"
-                  />
-                  <div class="post-meta">
-                    <p class="post-author">Alexandre Chen</p>
-                    <p class="post-date">
-                      <time datetime="2024-12-30">Dec 30, 2024</time>
-                    </p>
-                  </div>
-                </div>
-              </article>
-            </div>
-            <!-- End post list item -->
-
-            <div class="col-lg-6">
-              <article>
-                <div class="post-img">
-                  <img
-                    src="{% static 'assets/img/blog/blog-5.jpg' %}"
-                    alt=""
-                    class="img-fluid"
-                  />
-                </div>
-
-                <p class="post-category">SEO</p>
-
-                <h2 class="title">
-                  <a href="{% url 'blog_detail' %}"
-                    >Stratégies SEO avancées pour améliorer votre visibilité en
-                    ligne</a
-                  >
-                </h2>
-
-                <div class="d-flex align-items-center">
-                  <img
-                    src="{% static 'assets/img/blog/blog-author-5.jpg' %}"
-                    alt=""
-                    class="img-fluid post-author-img flex-shrink-0"
-                  />
-                  <div class="post-meta">
-                    <p class="post-author">Marie Leroy</p>
-                    <p class="post-date">
-                      <time datetime="2024-12-25">Dec 25, 2024</time>
-                    </p>
-                  </div>
-                </div>
-              </article>
-            </div>
-            <!-- End post list item -->
-
-            <div class="col-lg-6">
-              <article>
-                <div class="post-img">
-                  <img
-                    src="{% static 'assets/img/blog/blog-6.jpg' %}"
-                    alt=""
-                    class="img-fluid"
-                  />
-                </div>
-
-                <p class="post-category">Technologie</p>
-
-                <h2 class="title">
-                  <a href="{% url 'blog_detail' %}"
-                    >L'intelligence artificielle dans le développement web
-                    moderne</a
-                  >
-                </h2>
-
-                <div class="d-flex align-items-center">
-                  <img
-                    src="{% static 'assets/img/blog/blog-author-6.jpg' %}"
-                    alt=""
-                    class="img-fluid post-author-img flex-shrink-0"
-                  />
-                  <div class="post-meta">
-                    <p class="post-author">Paul Durand</p>
-                    <p class="post-date">
-                      <time datetime="2024-12-20">Dec 20, 2024</time>
-                    </p>
-                  </div>
-                </div>
-              </article>
-            </div>
+                  {% endfor %}
+            {% endfor %}
             <!-- End post list item -->
           </div>
         </div>

@@ -260,7 +260,7 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
-        'devlyfree': {  # Votre application
+        'devlyfree': { 
             'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True,

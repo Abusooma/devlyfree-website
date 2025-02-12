@@ -12,13 +12,16 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
-    def __str__(self) -> str:
+    def __str__(self):
         return str(self.email)
+    
+    def get_full_name(self):
+        return super().get_full_name()
 
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    image = CloudinaryField(blank=True, null=True)
+    profile_image = CloudinaryField(blank=True, null=True)
     
     def __str__(self) -> str:
         return self.user.username

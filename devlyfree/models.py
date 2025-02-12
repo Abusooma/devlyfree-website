@@ -178,7 +178,7 @@ class Article(models.Model):
     )
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    categorie = models.ForeignKey(Category, on_delete=models.CASCADE)
+    categorie = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='articles')
     tags = models.ManyToManyField(Tag)
     content = QuillField(blank=True, null=True)
 
@@ -188,6 +188,7 @@ class Article(models.Model):
         max_length=100,
         help_text="Texte alternatif pour l'image principale (SEO)"
     )
+
     status = models.CharField(max_length=10, choices=STATUS, default='draft')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -218,3 +219,4 @@ class Article(models.Model):
 
     def __str__(self):
         return str(self.titre)
+    
