@@ -220,3 +220,24 @@ class Article(models.Model):
     def __str__(self):
         return str(self.titre)
     
+
+class Comment(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    website = models.URLField(blank=True, null=True)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    approved = models.BooleanField(default=False)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
+
+    class Meta:
+        ordering = ['created_at']
+        verbose_name = 'Commentaire'
+        verbose_name_plural = 'Commentaires'
+
+    def __str__(self):
+        return f'Commentaire par {self.name} sur {self.article.titre}'
+

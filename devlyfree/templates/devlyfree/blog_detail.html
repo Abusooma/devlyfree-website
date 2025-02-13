@@ -1,24 +1,19 @@
 {% extends 'main.html' %} 
-
 {% load static %} 
 
-{% block meta_title %} {{ blog.titre }} {% endblock %} 
-
+{% block meta_title %}{{ article.titre }}{% endblock %} 
 
 {% block content %}
-
 <!-- Page Title -->
-<div
-  class="page-title dark-background"
-  data-aos="fade"
-  style="background-image: url('{% static 'assets/img/blog-page-title-bg.jpg' %}')"
->
+<div class="page-title dark-background" data-aos="fade" 
+     style="background-image: url('{% static 'assets/img/blog-page-title-bg.jpg' %}')">
   <div class="container">
-    <h1>Blog Details</h1>
+    <h1>{{ article.titre }}</h1>
     <nav class="breadcrumbs">
       <ol>
-        <li><a href="index.html">Home</a></li>
-        <li class="current">Blog Details</li>
+        <li><a href="{% url 'home' %}">Accueil</a></li>
+        <li><a href="{% url 'blog' %}">Blog</a></li>
+        <li class="current">{{ article.titre }}</li>
       </ol>
     </nav>
   </div>
@@ -32,464 +27,297 @@
       <section id="blog-details" class="blog-details section">
         <div class="container">
           <article class="article">
+            {% if article.featured_image %}
             <div class="post-img">
-              <img src="{% static 'assets/img/blog/blog-1.jpg' %}" alt="" class="img-fluid" />
+              <img src="{{ article.featured_image.url }}" alt="{{ article.featured_image_alt }}" class="img-fluid" />
             </div>
+            {% endif %}
 
-            <h2 class="title">
-              Les tendances du développement web à suivre absolument en 2025
-            </h2>
+            <h2 class="title">{{ article.titre }}</h2>
 
             <div class="meta-top">
               <ul>
                 <li class="d-flex align-items-center">
                   <i class="bi bi-person"></i>
-                  <a href="blog-details.html">Sophie Martin</a>
+                  <a href="#">{{ article.author.get_full_name }}</a>
                 </li>
                 <li class="d-flex align-items-center">
                   <i class="bi bi-clock"></i>
-                  <a href="blog-details.html"
-                    ><time datetime="2025-01-15">Jan 15, 2025</time></a
-                  >
+                  <time datetime="{{ article.published_at|date:'Y-m-d' }}">
+                    {{ article.published_at|date:"d M Y" }}
+                  </time>
                 </li>
                 <li class="d-flex align-items-center">
                   <i class="bi bi-chat-dots"></i>
-                  <a href="blog-details.html">8 Commentaires</a>
+                  <a href="#blog-comments">{{ comments_count }} Commentaires</a>
                 </li>
               </ul>
             </div>
-            <!-- End meta top -->
 
             <div class="content">
-              <p>
-                Le monde du développement web évolue constamment, et 2025
-                apporte son lot de nouvelles tendances et technologies. Dans cet
-                article, nous explorerons les innovations majeures qui façonnent
-                l'avenir du web et comment les entreprises peuvent en tirer
-                profit pour améliorer leur présence en ligne.
-              </p>
-
-              <p>
-                L'intelligence artificielle et le machine learning continuent de
-                révolutionner la façon dont nous concevons et développons les
-                sites web. Des chatbots plus intelligents aux systèmes de
-                recommandation personnalisés, l'IA devient un élément
-                incontournable du développement web moderne.
-              </p>
-
-              <blockquote>
-                <p>
-                  "L'adoption des technologies émergentes n'est plus une option
-                  mais une nécessité pour rester compétitif dans le paysage
-                  numérique actuel."
-                </p>
-              </blockquote>
-
-              <p>
-                Le développement web progressif (PWA) gagne en popularité,
-                offrant une expérience utilisateur similaire aux applications
-                natives tout en conservant les avantages du web. Cette approche
-                permet aux entreprises de toucher un plus large public tout en
-                réduisant les coûts de développement.
-              </p>
-
-              <h3>
-                L'importance croissante de la performance et de l'accessibilité
-              </h3>
-              <p>
-                La vitesse de chargement et l'optimisation des performances
-                deviennent des facteurs critiques pour le succès d'un site web.
-                Google continue de mettre l'accent sur les Core Web Vitals,
-                influençant directement le référencement. Parallèlement,
-                l'accessibilité web n'est plus une option mais une nécessité,
-                tant pour l'inclusion que pour la conformité légale.
-              </p>
-              <img
-                src="{% static 'assets/img/blog/blog-inside-post.jpg' %}"
-                class="img-fluid"
-                alt=""
-              />
-
-              <h3>Les frameworks JavaScript nouvelle génération</h3>
-              <p>
-                React, Vue.js et Angular continuent d'évoluer, avec des versions
-                plus performantes et plus faciles à utiliser. Les frameworks
-                "meta" comme Next.js et Nuxt.js gagnent en popularité, offrant
-                des solutions complètes pour le développement d'applications web
-                modernes.
-              </p>
-              <p>
-                L'architecture micro-frontends devient une approche viable pour
-                les grandes applications, permettant aux équipes de travailler
-                de manière plus indépendante et d'adopter une approche plus
-                modulaire du développement.
-              </p>
+              {{ article.content|safe }}
             </div>
-            <!-- End post content -->
 
             <div class="meta-bottom">
               <i class="bi bi-folder"></i>
               <ul class="cats">
-                <li><a href="#">Développement Web</a></li>
+                <li>
+                  <a href="{% url 'blog' %}?category={{ article.categorie.slug }}">
+                    {{ article.categorie.nom }}
+                  </a>
+                </li>
               </ul>
 
               <i class="bi bi-tags"></i>
               <ul class="tags">
-                <li><a href="#">Tendances</a></li>
-                <li><a href="#">Innovation</a></li>
-                <li><a href="#">Technologies</a></li>
+                {% for tag in article.tags.all %}
+                <li>
+                  <a href="{% url 'blog' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
+                </li>
+                {% endfor %}
               </ul>
             </div>
-            <!-- End meta bottom -->
           </article>
         </div>
       </section>
-      <!-- /Blog Details Section -->
 
       <!-- Blog Author Section -->
       <section id="blog-author" class="blog-author section">
         <div class="container">
           <div class="author-container d-flex align-items-center">
-            <img
-              src="{% static 'assets/img/blog/blog-author.jpg' %}"
-              class="rounded-circle flex-shrink-0"
-              alt=""
-            />
+            {% if article.author.profile.avatar %}
+            <img src="{{ article.author.profile.avatar.url }}" 
+                 class="rounded-circle flex-shrink-0" alt="{{ article.author.get_full_name }}" />
+            {% else %}
+            <img src="{% static 'assets/img/default-avatar.jpg' %}" 
+                 class="rounded-circle flex-shrink-0" alt="{{ article.author.get_full_name }}" />
+            {% endif %}
             <div>
-              <h4>Sophie Martin</h4>
+              <h4>{{ article.author.get_full_name }}</h4>
               <div class="social-links">
-                <a href="https://x.com/#"><i class="bi bi-twitter-x"></i></a>
-                <a href="https://facebook.com/#"
-                  ><i class="bi bi-facebook"></i
-                ></a>
-                <a href="https://instagram.com/#"
-                  ><i class="bi bi-instagram"></i
-                ></a>
+                {% if article.author.profile.twitter %}
+                <a href="{{ article.author.profile.twitter }}"><i class="bi bi-twitter-x"></i></a>
+                {% endif %}
+                {% if article.author.profile.facebook %}
+                <a href="{{ article.author.profile.facebook }}"><i class="bi bi-facebook"></i></a>
+                {% endif %}
+                {% if article.author.profile.instagram %}
+                <a href="{{ article.author.profile.instagram }}"><i class="bi bi-instagram"></i></a>
+                {% endif %}
               </div>
-              <p>
-                Experte en développement web avec plus de 10 ans d'expérience,
-                Sophie partage régulièrement ses connaissances sur les dernières
-                tendances technologiques et les meilleures pratiques de
-                développement. Elle est passionnée par l'innovation web et
-                l'amélioration continue des expériences utilisateur.
-              </p>
+              <p>{{ article.author.profile.bio }}</p>
             </div>
           </div>
         </div>
       </section>
-      <!-- /Blog Author Section -->
 
       <!-- Blog Comments Section -->
       <section id="blog-comments" class="blog-comments section">
         <div class="container">
-          <h4 class="comments-count">8 Commentaires</h4>
+          <h4 class="comments-count">{{ comments_count }} Commentaires</h4>
 
-          <div id="comment-1" class="comment">
+          {% for comment in comments %}
+          <div id="comment-{{ comment.id }}" class="comment">
             <div class="d-flex">
               <div class="comment-img">
-                <img src="{% static 'assets/img/blog/comments-1.jpg' %}" alt="" />
+                {% if comment.author and comment.author.profile.avatar %}
+                <img src="{{ comment.author.profile.avatar.url }}" alt="{{ comment.name }}" />
+                {% else %}
+                <img src="{% static 'assets/img/default-avatar.jpg' %}" alt="{{ comment.name }}" />
+                {% endif %}
               </div>
               <div>
                 <h5>
-                  <a href="">Marie Dubois</a>
-                  <a href="#" class="reply"
-                    ><i class="bi bi-reply-fill"></i> Répondre</a
-                  >
+                  <a href="">{{ comment.name }}</a>
+                  <a href="#comment-form" class="reply" 
+                     data-comment-id="{{ comment.id }}">
+                    <i class="bi bi-reply-fill"></i> Répondre
+                  </a>
                 </h5>
-                <time datetime="2025-01-15">15 Jan, 2025</time>
-                <p>
-                  Excellent article qui résume parfaitement les tendances
-                  actuelles. J'aimerais avoir plus de détails sur l'impact de
-                  l'IA dans le développement web, notamment concernant
-                  l'automatisation des tests et du déploiement.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div id="comment-2" class="comment">
-            <div class="d-flex">
-              <div class="comment-img">
-                <img src="{% static 'assets/img/blog/comments-2.jpg' %}" alt="" />
-              </div>
-              <div>
-                <h5>
-                  <a href="">Thomas Lambert</a>
-                  <a href="#" class="reply"
-                    ><i class="bi bi-reply-fill"></i> Répondre</a
-                  >
-                </h5>
-                <time datetime="2025-01-15">15 Jan, 2025</time>
-                <p>
-                  Les PWA sont effectivement l'avenir du web. Nous avons
-                  récemment migré notre application vers cette architecture et
-                  les résultats sont impressionnants.
-                </p>
+                <time datetime="{{ comment.created_at|date:'Y-m-d' }}">
+                  {{ comment.created_at|date:"d M Y" }}
+                </time>
+                <p>{{ comment.content }}</p>
               </div>
             </div>
 
-            <div id="comment-reply-1" class="comment comment-reply">
+            {% for reply in comment.replies.all %}
+            <div id="comment-reply-{{ reply.id }}" class="comment comment-reply">
               <div class="d-flex">
                 <div class="comment-img">
-                  <img src="{% static 'assets/img/blog/comments-3.jpg' %}" alt="" />
+                  {% if reply.author and reply.author.profile.avatar %}
+                  <img src="{{ reply.author.profile.avatar.url }}" alt="{{ reply.name }}" />
+                  {% else %}
+                  <img src="{% static 'assets/img/default-avatar.jpg' %}" alt="{{ reply.name }}" />
+                  {% endif %}
                 </div>
                 <div>
                   <h5>
-                    <a href="">Sophie Martin</a>
-                    <a href="#" class="reply"
-                      ><i class="bi bi-reply-fill"></i> Répondre</a
-                    >
+                    <a href="">{{ reply.name }}</a>
                   </h5>
-                  <time datetime="2025-01-15">15 Jan, 2025</time>
-                  <p>
-                    Merci pour votre retour d'expérience Thomas ! Pourriez-vous
-                    partager quelques métriques spécifiques sur les
-                    améliorations de performance que vous avez constatées ? Ce
-                    serait très instructif pour la communauté.
-                  </p>
+                  <time datetime="{{ reply.created_at|date:'Y-m-d' }}">
+                    {{ reply.created_at|date:"d M Y" }}
+                  </time>
+                  <p>{{ reply.content }}</p>
                 </div>
               </div>
             </div>
-            <!-- End comment reply #1-->
+            {% endfor %}
           </div>
-          <!-- End comment #2-->
-
-          <div id="comment-3" class="comment">
-            <div class="d-flex">
-              <div class="comment-img">
-                <img src="{% static 'assets/img/blog/comments-4.jpg' %}" alt="" />
-              </div>
-              <div>
-                <h5>
-                  <a href="">Lucas Moreau</a>
-                  <a href="#" class="reply"
-                    ><i class="bi bi-reply-fill"></i> Répondre</a
-                  >
-                </h5>
-                <time datetime="2025-01-15">15 Jan, 2025</time>
-                <p>
-                  Excellent point sur l'accessibilité web. C'est un aspect
-                  souvent négligé mais crucial. Avez-vous des recommandations
-                  d'outils pour tester l'accessibilité pendant le développement
-                  ?
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- End comment #3 -->
+          {% endfor %}
         </div>
       </section>
-      <!-- /Blog Comments Section -->
 
       <!-- Comment Form Section -->
       <section id="comment-form" class="comment-form section">
         <div class="container">
-          <form action="">
+          <form method="post" action="">
+            {% csrf_token %}
             <h4>Laisser un commentaire</h4>
-            <p>
-              Votre adresse e-mail ne sera pas publiée. Les champs obligatoires
-              sont marqués *
-            </p>
+            <p>Votre adresse e-mail ne sera pas publiée. Les champs obligatoires sont marqués *</p>
+
+            {% if messages %}
+            <div class="messages">
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            <input type="hidden" name="parent_id" id="parent_id" value="">
+
             <div class="row">
               <div class="col-md-6 form-group">
-                <input
-                  name="name"
-                  type="text"
-                  class="form-control"
-                  placeholder="Votre Nom*"
-                />
+                {{ comment_form.name }}
+                {% if comment_form.name.errors %}
+                <div class="invalid-feedback">
+                  {{ comment_form.name.errors|join:", " }}
+                </div>
+                {% endif %}
               </div>
               <div class="col-md-6 form-group">
-                <input
-                  name="email"
-                  type="text"
-                  class="form-control"
-                  placeholder="Votre Email*"
-                />
+                {{ comment_form.email }}
+                {% if comment_form.email.errors %}
+                <div class="invalid-feedback">
+                  {{ comment_form.email.errors|join:", " }}
+                </div>
+                {% endif %}
               </div>
             </div>
+
             <div class="row">
               <div class="col form-group">
-                <input
-                  name="website"
-                  type="text"
-                  class="form-control"
-                  placeholder="Votre Site Web"
-                />
+                {{ comment_form.website }}
+                {% if comment_form.website.errors %}
+                <div class="invalid-feedback">
+                  {{ comment_form.website.errors|join:", " }}
+                </div>
+                {% endif %}
               </div>
             </div>
+
             <div class="row">
               <div class="col form-group">
-                <textarea
-                  name="comment"
-                  class="form-control"
-                  placeholder="Votre Commentaire*"
-                ></textarea>
+                {{ comment_form.content }}
+                {% if comment_form.content.errors %}
+                <div class="invalid-feedback">
+                  {{ comment_form.content.errors|join:", " }}
+                </div>
+                {% endif %}
               </div>
             </div>
 
             <div class="text-center">
-              <button type="submit" class="btn btn-primary">
-                Publier le commentaire
-              </button>
+              <button type="submit" class="btn btn-primary">Publier le commentaire</button>
             </div>
           </form>
         </div>
       </section>
-      <!-- /Comment Form Section -->
     </div>
 
+    <!-- Sidebar -->
     <div class="col-lg-4 sidebar">
       <div class="widgets-container">
         <!-- Search Widget -->
         <div class="search-widget widget-item">
           <h3 class="widget-title">Rechercher</h3>
-          <form action="">
-            <input type="text" placeholder="Rechercher..." />
+          <form action="{% url 'blog' %}" method="get">
+            <input type="text" name="q" placeholder="Rechercher..." 
+                   value="{{ request.GET.q|default:'' }}">
             <button type="submit" title="Search">
               <i class="bi bi-search"></i>
             </button>
           </form>
         </div>
-        <!--/Search Widget -->
 
         <!-- Categories Widget -->
         <div class="categories-widget widget-item">
           <h3 class="widget-title">Catégories</h3>
           <ul class="mt-3">
+            {% for category in categories %}
             <li>
-              <a href="#">Développement Web <span>(25)</span></a>
+              <a href="{% url 'blog' %}?category={{ category.slug }}">
+                {{ category.nom }} <span>({{ category.article_count }})</span>
+              </a>
             </li>
-            <li>
-              <a href="#">E-commerce <span>(12)</span></a>
-            </li>
-            <li>
-              <a href="#">Applications Mobile <span>(15)</span></a>
-            </li>
-            <li>
-              <a href="#">Design UX/UI <span>(22)</span></a>
-            </li>
-            <li>
-              <a href="#">Technologies <span>(18)</span></a>
-            </li>
-            <li>
-              <a href="#">Innovation <span>(14)</span></a>
-            </li>
+            {% endfor %}
           </ul>
         </div>
-        <!--/Categories Widget -->
 
         <!-- Recent Posts Widget -->
         <div class="recent-posts-widget widget-item">
           <h3 class="widget-title">Articles Récents</h3>
-
+          {% for article in recent_articles %}
           <div class="post-item">
-            <img
-              src="{% static 'assets/img/blog/blog-recent-1.jpg' %}"
-              alt=""
-              class="flex-shrink-0"
-            />
+            {% if article.featured_image %}
+            <img src="{{ article.featured_image.url }}" alt="{{ article.featured_image_alt }}" 
+                 class="flex-shrink-0">
+            {% endif %}
             <div>
               <h4>
-                <a href="blog-details.html"
-                  >L'impact de l'IA sur le développement web en 2025</a
-                >
+                <a href="{% url 'blog_detail' article.slug %}">{{ article.titre }}</a>
               </h4>
-              <time datetime="2025-01-10">Jan 10, 2025</time>
+              <time datetime="{{ article.published_at|date:'Y-m-d' }}">
+                {{ article.published_at|date:"d M Y" }}
+              </time>
             </div>
           </div>
-
-          <div class="post-item">
-            <img
-              src="{% static 'assets/img/blog/blog-recent-2.jpg' %}"
-              alt=""
-              class="flex-shrink-0"
-            />
-            <div>
-              <h4>
-                <a href="blog-details.html"
-                  >Guide complet du responsive design</a
-                >
-              </h4>
-              <time datetime="2025-01-08">Jan 8, 2025</time>
-            </div>
-          </div>
-
-          <div class="post-item">
-            <img
-              src="{% static 'assets/img/blog/blog-recent-3.jpg' %}"
-              alt=""
-              class="flex-shrink-0"
-            />
-            <div>
-              <h4>
-                <a href="blog-details.html"
-                  >Les meilleures pratiques SEO pour 2025</a
-                >
-              </h4>
-              <time datetime="2025-01-05">Jan 5, 2025</time>
-            </div>
-          </div>
-
-          <div class="post-item">
-            <img
-              src="{% static 'assets/img/blog/blog-recent-4.jpg' %}"
-              alt=""
-              class="flex-shrink-0"
-            />
-            <div>
-              <h4>
-                <a href="blog-details.html"
-                  >Optimisation des performances web</a
-                >
-              </h4>
-              <time datetime="2025-01-03">Jan 3, 2025</time>
-            </div>
-          </div>
-
-          <div class="post-item">
-            <img
-              src="{% static 'assets/img/blog/blog-recent-5.jpg' %}"
-              alt=""
-              class="flex-shrink-0"
-            />
-            <div>
-              <h4>
-                <a href="blog-details.html"
-                  >Comment choisir le bon CMS pour votre projet</a
-                >
-              </h4>
-              <time datetime="2025-01-01">Jan 1, 2025</time>
-            </div>
-          </div>
+          {% endfor %}
         </div>
-        <!--/Recent Posts Widget -->
 
         <!-- Tags Widget -->
         <div class="tags-widget widget-item">
           <h3 class="widget-title">Tags</h3>
           <ul>
-            <li><a href="#">React</a></li>
-            <li><a href="#">Vue.js</a></li>
-            <li><a href="#">Node.js</a></li>
-            <li><a href="#">PWA</a></li>
-            <li><a href="#">UX/UI</a></li>
-            <li><a href="#">DevOps</a></li>
-            <li><a href="#">API</a></li>
-            <li><a href="#">Frontend</a></li>
-            <li><a href="#">Backend</a></li>
-            <li><a href="#">Mobile</a></li>
-            <li><a href="#">SEO</a></li>
-            <li><a href="#">WordPress</a></li>
-            <li><a href="#">Performance</a></li>
-            <li><a href="#">Sécurité</a></li>
-            <li><a href="#">JavaScript</a></li>
-            <li><a href="#">Cloud</a></li>
+            {% for tag in tags %}
+            <li>
+              <a href="{% url 'blog' %}?tag={{ tag.slug }}">
+                {{ tag.name }}
+              </a>
+            </li>
+            {% endfor %}
           </ul>
         </div>
-        <!--/Tags Widget -->
       </div>
     </div>
   </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Script pour gérer les réponses aux commentaires
+document.querySelectorAll('.reply').forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const commentId = button.dataset.commentId;
+        document.getElementById('parent_id').value = commentId;
+        document.querySelector('#comment-form h4').textContent = 'Répondre au commentaire';
+        document.querySelector('#comment-form').scrollIntoView({ behavior: 'smooth' });
+    });
+});
+</script>
 {% endblock %}

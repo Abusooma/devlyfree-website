@@ -1,10 +1,12 @@
 from .models import Article, Category, Tag
+from django.contrib import messages
+from .forms import CommentForm
 from django.db.models import Count
 from cloudinary import uploader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from .models import Service, Article, Category, Tag
 
@@ -16,7 +18,13 @@ logger = logging.getLogger(__name__)
 
 def home_view(request):
     services = Service.objects.all()
-    context = {'services': services}
+    recent_articles = (
+        Article.objects
+        .select_related('author')
+        .filter(status='published')
+        .order_by('-published_at')[:5]
+    )
+    context = {'services': services, 'recent_articles': recent_articles}
 
     if hasattr(request, 'seo_data') and request.seo_data is not None:
         context.update(request.seo_data)
@@ -132,8 +140,75 @@ def blog_view(request):
     return render(request, 'devlyfree/blog.html', context)
 
 
-def blog_detail_view(request):
-    return render(request, 'devlyfree/blog_detail.html')
+def blog_detail_view(request, slug):
+    print(slug)
+    # Récupérer l'article avec ses relations
+    article = get_object_or_404(
+        Article.objects
+        .select_related('categorie', 'author')
+        .prefetch_related('tags', 'comments__author')
+        .filter(status='published'),
+        slug=slug
+    )
+
+    # Récupérer les commentaires de l'article
+    comments = article.comments.filter(approved=True).order_by('-created_at')
+    comments_count = comments.count()
+
+    # Articles récents pour le widget sidebar
+    recent_articles = (
+        Article.objects
+        .select_related('author')
+        .filter(status='published')
+        .exclude(id=article.id)  # Exclure l'article courant
+        .order_by('-published_at')[:5]
+    )
+
+    # Catégories pour le widget
+    categories = (
+        Category.objects
+        .annotate(
+            article_count=Count(
+                'articles',
+                filter=Article.objects.filter(status='published').values('id')
+            )
+        )
+        .order_by('nom')
+    )
+
+    # Tags pour le widget
+    tags = Tag.objects.annotate(
+        article_count=Count(
+            'articles',
+            filter=Article.objects.filter(status='published').values('id')
+        )
+    ).order_by('-article_count')[:20]
+
+    # Gestion du formulaire de commentaire
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.article = article
+            comment.author = request.user if request.user.is_authenticated else None
+            comment.save()
+            messages.success(
+                request, 'Votre commentaire a été soumis avec succès et est en attente de modération.')
+            return redirect('blog_detail', slug=slug)
+    else:
+        comment_form = CommentForm()
+
+    context = {
+        'article': article,
+        'comments': comments,
+        'comments_count': comments_count,
+        'comment_form': comment_form,
+        'recent_articles': recent_articles,
+        'categories': categories,
+        'tags': tags,
+    }
+
+    return render(request, 'devlyfree/blog_detail.html', context)
 
 
 def contact_view(request):

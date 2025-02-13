@@ -38,7 +38,7 @@
                                 <p class="post-category">{{ article.categorie.nom }}</p>
 
                                 <h2 class="title">
-                                    <a href="{% url 'blog_detail' %}">{{ article.titre }}</a>
+                                    <a href="{% url 'blog_detail' article.slug %}">{{ article.titre }}</a>
                                 </h2>
 
                                 <div class="d-flex align-items-center">
@@ -142,7 +142,7 @@
                         {% endif %}
                         <div>
                             <h4>
-                                <a href="{% url 'blog_detail' %}">{{ article.titre }}</a>
+                                <a href="{% url 'blog_detail' article.slug %}">{{ article.titre }}</a>
                             </h4>
                             <time datetime="{{ article.published_at|date:'Y-m-d' }}">
                                 {{ article.published_at|date:"d M Y" }}

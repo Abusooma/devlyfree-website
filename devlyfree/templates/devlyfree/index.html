@@ -353,110 +353,30 @@
 
   <div class="container">
     <div class="row gy-5">
+      {% for article in recent_articles %}
       <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
         <div class="post-box">
-          <div class="post-img">
-            <img
-              src="{% static 'assets/img/blog/blog-1.jpg' %}"
-              class="img-fluid"
-              alt="Image illustrant le e-commerce"
-            />
-          </div>
+          {% if article.featured_image %}
+            <div class="post-img">
+              <img src="{{ article.featured_image.url }}" alt="{{ article.featured_image_alt }}" class="img-fluid" />
+            </div>
+            {% endif %}
           <div class="meta">
-            <span class="post-date">Mar, 15 Janvier 2024</span>
-            <span class="post-author"> / Sophie Martin</span>
+            <span class="post-date">{{ article.published_at|date:"d M Y" }}</span>
+            <span class="post-author"> / {{ article.author.get_full_name }}</span>
           </div>
-          <h3 class="post-title">
-            Comment Optimiser Votre Site E-commerce pour Booster vos Ventes
-          </h3>
-          <p>
-            Découvrez les meilleures pratiques pour optimiser votre boutique en
-            ligne : expérience utilisateur, tunnel de conversion, et stratégies
-            de fidélisation client...
-          </p>
-          <a href="{% url 'blog_detail' %}" class="readmore stretched-link"
+          <h3 class="post-title"> {{ article.titre }} </h3>
+          <p>{{ article.content|safe|truncatewords:50 }}</p>
+          <a href="{% url 'blog_detail' article.slug %}" class="readmore stretched-link"
             ><span>Lire Plus</span><i class="bi bi-arrow-right"></i
           ></a>
         </div>
       </div>
-
-      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-        <div class="post-box">
-          <div class="post-img">
-            <img
-              src="{% static 'assets/img/blog/blog-2.jpg' %}"
-              class="img-fluid"
-              alt="Image illustrant le SEO"
-            />
-          </div>
-          <div class="meta">
-            <span class="post-date">Jeu, 4 Janvier 2024</span>
-            <span class="post-author"> / Thomas Dubois</span>
-          </div>
-          <h3 class="post-title">Les Tendances SEO à Suivre en 2024</h3>
-          <p>
-            Les dernières mises à jour des algorithmes de Google et comment
-            adapter votre stratégie SEO pour maintenir et améliorer votre
-            classement...
-          </p>
-          <a href="" class="readmore stretched-link"
-            ><span>Lire Plus</span><i class="bi bi-arrow-right"></i
-          ></a>
-        </div>
-      </div>
-
-      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
-        <div class="post-box">
-          <div class="post-img">
-            <img
-              src="{% static 'assets/img/blog/blog-3.jpg' %}"
-              class="img-fluid"
-              alt="Image illustrant le développement web"
-            />
-          </div>
-          <div class="meta">
-            <span class="post-date">Lun, 28 Décembre 2023</span>
-            <span class="post-author"> / Marie Laurent</span>
-          </div>
-          <h3 class="post-title">
-            Les Technologies Web Incontournables pour 2024
-          </h3>
-          <p>
-            Tour d'horizon des frameworks et technologies qui transforment le
-            développement web moderne. Focus sur la performance et l'expérience
-            utilisateur...
-          </p>
-          <a href="{% url 'blog_detail' %}" class="readmore stretched-link"
-            ><span>Lire Plus</span><i class="bi bi-arrow-right"></i
-          ></a>
-        </div>
-      </div>
-
-      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
-        <div class="post-box">
-          <div class="post-img">
-            <img
-              src="{% static 'assets/img/blog/blog-4.jpg' %}"
-              class="img-fluid"
-              alt="Image illustrant le marketing digital"
-            />
-          </div>
-          <div class="meta">
-            <span class="post-date">Mer, 20 Décembre 2023</span>
-            <span class="post-author"> / Lucas Bernard</span>
-          </div>
-          <h3 class="post-title">
-            Marketing Digital : Les Stratégies Qui Marchent
-          </h3>
-          <p>
-            Analyse des stratégies marketing les plus efficaces pour les petites
-            et moyennes entreprises. Cas pratiques et retours d'expérience...
-          </p>
-          <a href="{% url 'blog_detail' %}" class="readmore stretched-link"
-            ><span>Lire Plus</span><i class="bi bi-arrow-right"></i
-          ></a>
-        </div>
-      </div>
+        {% empty %}
+           <div class="col-12">
+               <p class="text-center">Aucun article disponible pour le moment.</p>
+           </div>
+      {% endfor %}
     </div>
   </div>
 </section>

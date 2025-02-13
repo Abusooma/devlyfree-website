@@ -1,4 +1,4 @@
-from .models import Service, Category, Tag, Article, PageSEO
+from .models import Service, Category, Tag, Article, PageSEO, Comment
 from django.contrib import admin
 from unfold.admin import ModelAdmin
 from django.utils.html import format_html
@@ -157,7 +157,7 @@ class CategoryAdmin(ModelAdmin):
     )
 
     def post_count(self, obj):
-        return obj.article_set.count()
+        return obj.articles.count()
     post_count.short_description = "Nombre d'articles"
 
     def seo_status(self, obj):
@@ -199,7 +199,7 @@ class TagAdmin(ModelAdmin):
     )
 
     def post_count(self, obj):
-        return obj.article_set.count()
+        return obj.articles.count()
     post_count.short_description = "Nombre d'articles"
 
     def seo_status(self, obj):
@@ -323,6 +323,119 @@ class ArticleAdmin(ModelAdmin):
         css = {
             'all': (
                 'https://cdn.quilljs.com/1.3.6/quill.snow.css',
+                'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css',
+            )
+        }
+
+
+@admin.register(Comment)
+class CommentAdmin(ModelAdmin):
+    compressed_fields = ['comment_title']
+    list_display = ['comment_title', 'name', 'article_link',
+                    'created_at', 'approved', 'has_replies']
+    list_filter = ['approved', 'created_at',
+                   ('parent', admin.EmptyFieldListFilter)]
+    search_fields = ['name', 'email', 'content', 'article__titre']
+    readonly_fields = ['created_at', 'updated_at', 'replies_preview']
+    actions = ['approve_comments', 'unapprove_comments']
+
+    fieldsets = (
+        ('Informations du commentaire', {
+            'fields': (
+                'article',
+                'name',
+                'email',
+                'website',
+                'approved'
+            ),
+            'classes': ('wide',)
+        }),
+        ('Contenu', {
+            'fields': ('content',),
+            'classes': ('wide',)
+        }),
+        ('Hiérarchie', {
+            'fields': ('parent', 'replies_preview'),
+            'classes': ('wide',)
+        }),
+        ('Métadonnées', {
+            'fields': (
+                'author',
+                'created_at',
+                'updated_at'
+            ),
+            'classes': ('collapse', 'wide',)
+        }),
+    )
+
+    def comment_title(self, obj):
+        return format_html(
+            '<div style="max-width: 300px; overflow: hidden; text-overflow: ellipsis;">{}</div>',
+            obj.content[:50] + '...' if len(obj.content) > 50 else obj.content
+        )
+    comment_title.short_description = 'Commentaire'
+
+    def article_link(self, obj):
+        return format_html(
+            '<a href="{}" style="color: #007bff; text-decoration: none;">{}</a>',
+            f'/admin/blog/article/{obj.article.id}/change/',
+            obj.article.titre
+        )
+    article_link.short_description = 'Article'
+
+    def has_replies(self, obj):
+        replies_count = obj.replies.count()
+        if replies_count > 0:
+            return format_html(
+                '<span style="color: green;">✓ {} réponse{}</span>',
+                replies_count,
+                's' if replies_count > 1 else ''
+            )
+        return format_html('<span style="color: #999;">-</span>')
+    has_replies.short_description = 'Réponses'
+
+    def replies_preview(self, obj):
+        if not obj.replies.exists():
+            return format_html(
+                '<div style="color: #999; font-style: italic;">Aucune réponse</div>'
+            )
+
+        replies_html = []
+        for reply in obj.replies.all():
+            replies_html.append(
+                f"""
+                <div style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 4px;">
+                    <strong>{reply.name}</strong> - {reply.created_at.strftime('%d/%m/%Y %H:%M')}
+                    <p style="margin: 5px 0;">{reply.content}</p>
+                </div>
+                """
+            )
+
+        return format_html(
+            '<div style="max-height: 300px; overflow-y: auto;">{}</div>',
+            ''.join(replies_html)
+        )
+    replies_preview.short_description = 'Aperçu des réponses'
+
+    @admin.action(description='Approuver les commentaires sélectionnés')
+    def approve_comments(self, request, queryset):
+        updated = queryset.update(approved=True)
+        self.message_user(
+            request,
+            f'{updated} commentaire{"s" if updated > 1 else ""} approuvé{"s" if updated > 1 else ""}.'
+        )
+
+    @admin.action(description='Désapprouver les commentaires sélectionnés')
+    def unapprove_comments(self, request, queryset):
+        updated = queryset.update(approved=False)
+        self.message_user(
+            request,
+            f'{updated} commentaire{"s" if updated > 1 else ""} désapprouvé{"s" if updated > 1 else ""}.'
+        )
+
+    class Media:
+        css = {
+            'all': (
                 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css',
             )
         }
