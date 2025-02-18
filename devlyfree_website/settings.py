@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "compressor",
     'devlyfree',
+    'devlyfree.templatetags',
     'accounts',
     'django_quill',
     'cloudinary_storage',
@@ -84,7 +85,7 @@ QUILL_CONFIGS = {
                 [{'color': []}, {'background': []}],
                 [{'font': []}],
                 ['clean'],
-                ['link', 'image', 'video']
+                ['link', 'image', 'video'],
             ]
         }
     }
@@ -111,6 +112,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'devlyfree.middleware.SEOMiddleware',
+    'devlyfree.middleware.RequestSizeMiddleware',
 ]
 
 WHITENOISE_MAX_AGE = 31536000  # 1 an en secondes
@@ -133,8 +135,10 @@ STATICFILES_FINDERS = (
 )
 
 # Configuration de django-compressor
-COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = ENVIRONMENT != 'production'
+
+COMPRESS_ENABLED = ENVIRONMENT == 'production'
+COMPRESS_OFFLINE = ENVIRONMENT == 'production'
+
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.rCSSMinFilter'
@@ -267,3 +271,10 @@ LOGGING = {
         },
     },
 }
+
+
+# Taille maximale des fichiers uploadés (par exemple 10MB)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB en bytes
+
+# Taille maximale pour un fichier individuel
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB en bytes

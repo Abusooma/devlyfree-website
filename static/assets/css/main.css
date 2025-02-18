@@ -379,7 +379,7 @@ h6 {
 
 /* Version Mobile/Tablette */
 @media (max-width: 991px) {
-   .navmenu .dropdown-menu {
+  .navmenu .dropdown-menu {
     position: static;
     transform: none;
     width: 100%;
@@ -403,7 +403,7 @@ h6 {
     color: white !important;
   }
 
-   .navmenu .dropdown.active > a {
+  .navmenu .dropdown.active > a {
     color: white;
     transform: translateY(-50%);
   }
@@ -432,7 +432,6 @@ h6 {
   .navmenu .dropdown-menu .view-all {
     border-bottom-color: rgba(255, 255, 255, 0.1);
   }
-
 
   .navmenu .dropdown-menu span {
     color: rgba(255, 255, 255, 0.7);
@@ -467,7 +466,7 @@ h6 {
     color: white !important;
   }
 
-   .navmenu .dropdown.active > a {
+  .navmenu .dropdown.active > a {
     color: white;
     transform: translateY(-50%);
   }
@@ -496,7 +495,6 @@ h6 {
   .navmenu .dropdown-menu .view-all {
     border-bottom-color: rgba(255, 255, 255, 0.1);
   }
-
 
   .navmenu .dropdown-menu span {
     color: rgba(255, 255, 255, 0.7);
@@ -2077,7 +2075,6 @@ section,
   color: var(--accent-color);
 }
 
-
 .service-details .service-content {
   opacity: 1;
   transition: opacity 0.3s ease;
@@ -3067,4 +3064,146 @@ section,
   padding-left: 5px;
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
+}
+
+/* Style personnalisé pour le quill editor */
+
+/* Styles de base pour toutes les images */
+.article-image {
+  display: block;
+  height: auto;
+  width: 100%; /* L'image prendra toute la largeur disponible */
+  max-width: 100%; /* Ne dépassera pas la largeur de son parent */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  object-fit: contain; /* Garde les proportions de l'image */
+}
+
+/* Wrapper de base */
+.image-wrapper {
+  width: 100%; /* Le wrapper prend toute la largeur disponible */
+  margin: 2rem auto;
+  text-align: center;
+}
+
+/* Tailles d'images avec min-width pour garantir une largeur minimale */
+.img-small {
+  min-width: 300px;
+  width: 100%;
+}
+
+.img-medium {
+  min-width: 500px;
+  width: 100%;
+}
+
+.img-large {
+  min-width: 800px;
+  width: 100%;
+}
+
+/* Wrappers spécifiques aux tailles */
+.small-wrapper {
+  min-width: 320px;
+  width: 100%;
+}
+
+.medium-wrapper {
+  min-width: 520px;
+  width: 100%;
+}
+
+.large-wrapper {
+  min-width: 820px;
+  width: 100%;
+}
+
+/* Style pour la légende */
+.image-wrapper figcaption {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.9em;
+  font-style: italic;
+  width: 100%; /* La légende prend toute la largeur */
+}
+
+/* Media queries pour la responsivité */
+@media (max-width: 768px) {
+  .img-large,
+  .img-medium,
+  .img-small,
+  .large-wrapper,
+  .medium-wrapper,
+  .small-wrapper {
+    min-width: 100%; /* Supprime les largeurs minimales sur mobile */
+    width: 100%;
+  }
+}
+
+/* Effets au survol */
+.article-image:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Classes d'alignement */
+.img-left,
+.img-right,
+.img-center {
+  width: 100%;
+  display: block;
+}
+
+/* Style pour les blocs de code */
+.code-block-wrapper {
+  position: relative;
+  background-color: #1e1e1e;
+  border-radius: 6px;
+  margin: 1.5em 0;
+  padding: 1em;
+  overflow: auto;
+}
+
+.code-block {
+  font-family: "Fira Code", "Consolas", monospace;
+  color: #d4d4d4;
+  font-size: 0.9em;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+.code-language-badge {
+  position: absolute;
+  top: 0;
+  right: 1em;
+  background-color: #2d2d2d;
+  color: #9cdcfe;
+  padding: 0.2em 0.6em;
+  border-radius: 0 0 4px 4px;
+  font-size: 0.8em;
+  font-family: sans-serif;
+}
+
+/* Style pour la coloration syntaxique */
+.ql-syntax {
+  background-color: #1e1e1e !important;
+  color: #d4d4d4 !important;
+}
+
+/* Styles spécifiques pour différents éléments de code */
+.code-block .keyword {
+  color: #569cd6;
+}
+.code-block .string {
+  color: #ce9178;
+}
+.code-block .comment {
+  color: #6a9955;
+}
+.code-block .function {
+  color: #dcdcaa;
+}
+.code-block .number {
+  color: #b5cea8;
 }

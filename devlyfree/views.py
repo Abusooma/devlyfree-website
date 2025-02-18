@@ -1,3 +1,4 @@
+from django.core.exceptions import RequestDataTooBig
 from .models import Article, Category, Tag
 from django.contrib import messages
 from .forms import CommentForm
@@ -5,13 +6,13 @@ from django.db.models import Count
 from cloudinary import uploader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from .models import Service, Article, Category, Tag
-
-
 import logging
+
 
 logger = logging.getLogger(__name__)
 
@@ -24,11 +25,14 @@ def home_view(request):
         .filter(status='published')
         .order_by('-published_at')[:5]
     )
+
     context = {'services': services, 'recent_articles': recent_articles}
 
     if hasattr(request, 'seo_data') and request.seo_data is not None:
         context.update(request.seo_data)
+
     return render(request, 'devlyfree/index.html', context)
+
 
 def about_view(request):
     context = {}
@@ -53,8 +57,10 @@ def service_detail_view(request, slug):
         'all_services': all_services,
         'selected_slug': slug
     }
+
     if hasattr(request, 'seo_data') and request.seo_data is not None:
         context.update(request.seo_data)
+        
     return render(request, 'devlyfree/service_detail.html', context)
 
 
@@ -141,7 +147,6 @@ def blog_view(request):
 
 
 def blog_detail_view(request, slug):
-    print(slug)
     # Récupérer l'article avec ses relations
     article = get_object_or_404(
         Article.objects
@@ -184,6 +189,7 @@ def blog_detail_view(request, slug):
         )
     ).order_by('-article_count')[:20]
 
+
     # Gestion du formulaire de commentaire
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -220,22 +226,40 @@ def contact_view(request):
 
 @csrf_exempt
 def upload_image(request):
-    if request.method == "POST":
-        if 'image' in request.FILES:
+    try:
+        if request.method == "POST":
+            if 'image' not in request.FILES:
+                return JsonResponse({
+                    'error': 'Aucun fichier image trouvé dans la requête'
+                }, status=400)
+
             image = request.FILES['image']
+
+            # Vérification de la taille
+            if image.size > settings.DATA_UPLOAD_MAX_MEMORY_SIZE:
+                return JsonResponse({
+                    'error': f'L\'image est trop volumineuse. Taille maximum: {settings.DATA_UPLOAD_MAX_MEMORY_SIZE/1024/1024}MB'
+                }, status=413)
+
             try:
                 result = uploader.upload(image)
                 return JsonResponse({
                     'url': result['secure_url']
                 })
             except Exception as e:
-                print(f"Upload error: {str(e)}")
                 return JsonResponse({
-                    'error': str(e)
+                    'error': f'Erreur lors de l\'upload: {str(e)}'
                 }, status=500)
-        else:
-            print("No image file found in request")
-            return JsonResponse({
-                'error': 'No image file found in request'
-            }, status=400)
-    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+    except RequestDataTooBig:
+        return JsonResponse({
+            'error': f'L\'image est trop volumineuse. Taille maximum: {settings.DATA_UPLOAD_MAX_MEMORY_SIZE/1024/1024}MB'
+        }, status=413)
+    except Exception as e:
+        return JsonResponse({
+            'error': f'Erreur inattendue: {str(e)}'
+        }, status=500)
+
+    return JsonResponse({
+        'error': 'Méthode non autorisée'
+    }, status=405)

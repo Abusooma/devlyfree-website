@@ -10,3 +10,4 @@ psycopg2-binary
 django-cloudinary-storage
 django-compressor
 django-quill-editor
+beautifulsoup4

@@ -8,6 +8,19 @@
         // Attendre que Quill soit complètement chargé
         setTimeout(function() {
             const editors = document.querySelectorAll('.django-quill-widget-content');
+            
+            // Fonction pour afficher les messages d'erreur
+            function showErrorMessage(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-danger';
+                errorDiv.style.cssText = 'position: fixed; top: 20px; right: 20px; padding: 15px; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px; color: #721c24; z-index: 9999;';
+                errorDiv.textContent = message;
+                document.body.appendChild(errorDiv);
+                
+                // Supprimer le message après 5 secondes
+                setTimeout(() => errorDiv.remove(), 5000);
+            }
+
             editors.forEach(function(editor) {
                 if (!editor.classList.contains('quill-initialized')) {
                     const quill = new Quill(editor, {
@@ -30,9 +43,8 @@
                         }
                     });
 
-                    // Gestionnaire d'upload d'images personnalisé
-                    const toolbar = editor.querySelector('.ql-toolbar');
-                    const imageButton = toolbar.querySelector('button.ql-image');
+                    // Handler d'image personnalisé
+                    const imageButton = editor.querySelector('button.ql-image');
                     
                     if (imageButton) {
                         imageButton.addEventListener('click', function(e) {
@@ -44,6 +56,14 @@
 
                             input.onchange = async () => {
                                 const file = input.files[0];
+                                
+                                // Vérification de la taille du fichier (exemple: 10MB max)
+                                const maxSize = 10 * 1024 * 1024; // 10MB en octets
+                                if (file.size > maxSize) {
+                                    showErrorMessage('L\'image est trop volumineuse. La taille maximum est de 10MB.');
+                                    return;
+                                }
+
                                 const formData = new FormData();
                                 formData.append('image', file);
 
@@ -52,12 +72,31 @@
                                         method: 'POST',
                                         body: formData
                                     });
+                                    
+                                    if (!response.ok) {
+                                        const errorData = await response.json();
+                                        throw new Error(errorData.error || 'Erreur lors du téléchargement');
+                                    }
+                                    
                                     const result = await response.json();
+                                    
                                     if (result.url) {
+                                        const size = prompt('Choisissez la taille (small, medium, large):', 'medium');
                                         const range = quill.getSelection(true);
+                                        
                                         quill.insertEmbed(range.index, 'image', result.url);
+                                        
+                                        setTimeout(() => {
+                                            const images = editor.getElementsByTagName('img');
+                                            const lastImage = images[images.length - 1];
+                                            if (lastImage && lastImage.src === result.url) {
+                                                lastImage.className = `article-image img-${size || 'medium'}`;
+                                                lastImage.setAttribute('data-size', size || 'medium');
+                                            }
+                                        }, 0);
                                     }
                                 } catch (error) {
+                                    showErrorMessage('Erreur lors du téléchargement de l\'image: ' + error.message);
                                     console.error('Upload failed:', error);
                                 }
                             };
@@ -67,7 +106,7 @@
                     editor.classList.add('quill-initialized');
                 }
             });
-        }, 1000); // Attendre 1 seconde pour s'assurer que tout est chargé
+        }, 1000);
     });
 </script>
 {% endblock %}

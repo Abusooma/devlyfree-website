@@ -45,7 +45,6 @@ class PageSEO(models.Model):
         return f"SEO pour {self.get_page_display()}"
 
 
-
 class Service(models.Model):
     ICON_CHOICES = [
         ('bi bi-briefcase', 'Icône pour Création Web'),

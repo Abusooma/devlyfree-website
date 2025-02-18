@@ -1,3 +1,5 @@
+from django.http import JsonResponse
+from django.core.exceptions import RequestDataTooBig
 from .models import PageSEO, Service
 import logging
 
@@ -35,3 +37,16 @@ class SEOMiddleware:
             logger.debug("No resolver_match or URL name found")
 
         return None
+
+
+class RequestSizeMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        try:
+            return self.get_response(request)
+        except RequestDataTooBig:
+            return JsonResponse({
+                'error': 'Le fichier uploadé dépasse la taille maximale autorisée'
+            }, status=413)

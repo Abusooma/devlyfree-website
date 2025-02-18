@@ -1,6 +1,9 @@
 {% extends 'main.html' %} 
 {% load static %} 
 
+{% load quill_tags %}
+
+
 {% block meta_title %}{{ article.titre }}{% endblock %} 
 
 {% block content %}
@@ -55,7 +58,7 @@
             </div>
 
             <div class="content">
-              {{ article.content|safe }}
+              {{ article.content|format_quill_content|safe }}
             </div>
 
             <div class="meta-bottom">
@@ -309,14 +312,21 @@
 
 {% block extra_js %}
 <script>
-// Script pour gérer les réponses aux commentaires
-document.querySelectorAll('.reply').forEach(button => {
-    button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const commentId = button.dataset.commentId;
-        document.getElementById('parent_id').value = commentId;
-        document.querySelector('#comment-form h4').textContent = 'Répondre au commentaire';
-        document.querySelector('#comment-form').scrollIntoView({ behavior: 'smooth' });
+document.addEventListener('DOMContentLoaded', function() {
+    // Script existant pour gérer les réponses aux commentaires
+    document.querySelectorAll('.reply').forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const commentId = button.dataset.commentId;
+            document.getElementById('parent_id').value = commentId;
+            document.querySelector('#comment-form h4').textContent = 'Répondre au commentaire';
+            document.querySelector('#comment-form').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Nouveau script pour highlight.js
+    document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
     });
 });
 </script>
