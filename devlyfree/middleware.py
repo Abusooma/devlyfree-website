@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.core.exceptions import RequestDataTooBig
-from .models import PageSEO, Service
+from .models import PageSEO, Service, Article
 import logging
 
 logger = logging.getLogger(__name__)
@@ -22,6 +22,9 @@ class SEOMiddleware:
                     if url_name == 'service_detail' and view_kwargs:
                         slug = view_kwargs.get('slug')
                         seo_data = Service.objects.get(slug=slug)
+                    elif url_name == 'blog_detail' and view_kwargs:
+                        slug = view_kwargs.get('slug')
+                        seo_data = Article.objects.get(slug=slug)
                     else:
                         seo_data = PageSEO.objects.get(page=url_name)
 
@@ -31,7 +34,7 @@ class SEOMiddleware:
                         'meta_keywords': seo_data.meta_keywords
                     }
                    
-                except (PageSEO.DoesNotExist, Service.DoesNotExist):
+                except (PageSEO.DoesNotExist, Service.DoesNotExist, Article.DoesNotExist):
                     request.seo_data = None
         else:
             logger.debug("No resolver_match or URL name found")

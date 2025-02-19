@@ -137,7 +137,7 @@ def blog_view(request):
         'articles': articles,
         'categories': categories,
         'tags': tags,
-        'recent_articles': recent_articles,
+        'recent_articles': recent_articles
     }
 
     if hasattr(request, 'seo_data') and request.seo_data is not None:
@@ -213,6 +213,9 @@ def blog_detail_view(request, slug):
         'categories': categories,
         'tags': tags,
     }
+
+    # Mise a jour du contexte pour l'ajout du dictionnaire des meta données
+    context.update(request.seo_data)
 
     return render(request, 'devlyfree/blog_detail.html', context)
 
