@@ -2,7 +2,7 @@ from django.core.exceptions import RequestDataTooBig
 from .models import Article, Category, Tag
 from django.contrib import messages
 from .forms import CommentForm
-from django.db.models import Count
+from django.db.models import Count, Q
 from cloudinary import uploader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.csrf import csrf_exempt
@@ -175,7 +175,7 @@ def blog_detail_view(request, slug):
         .annotate(
             article_count=Count(
                 'articles',
-                filter=Article.objects.filter(status='published').values('id')
+                filter=Q(articles__status='published')
             )
         )
         .order_by('nom')
@@ -185,7 +185,7 @@ def blog_detail_view(request, slug):
     tags = Tag.objects.annotate(
         article_count=Count(
             'articles',
-            filter=Article.objects.filter(status='published').values('id')
+            filter=Q(articles__status='published')
         )
     ).order_by('-article_count')[:20]
 
