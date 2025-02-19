@@ -151,7 +151,9 @@
                   {% if reply.author and reply.author.profile.avatar %}
                   <img src="{{ reply.author.profile.avatar.url }}" alt="{{ reply.name }}" />
                   {% else %}
-                  <img src="{% static 'assets/img/default-avatar.jpg' %}" alt="{{ reply.name }}" />
+                  <div class="d-flex align-items-center justify-content-center bg-light rounded-circle" style="width: 60px; height: 60px;">
+                      <i class="bi bi-person-fill fs-2 text-secondary"></i>
+                  </div>
                   {% endif %}
                 </div>
                 <div>
