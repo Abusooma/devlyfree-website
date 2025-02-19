@@ -216,18 +216,6 @@
                 {% endif %}
               </div>
             </div>
-
-            <div class="row">
-              <div class="col form-group">
-                {{ comment_form.website }}
-                {% if comment_form.website.errors %}
-                <div class="invalid-feedback">
-                  {{ comment_form.website.errors|join:", " }}
-                </div>
-                {% endif %}
-              </div>
-            </div>
-
             <div class="row">
               <div class="col form-group">
                 {{ comment_form.content }}
@@ -238,7 +226,6 @@
                 {% endif %}
               </div>
             </div>
-
             <div class="text-center">
               <button type="submit" class="btn btn-primary">Publier le commentaire</button>
             </div>

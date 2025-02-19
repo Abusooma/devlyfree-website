@@ -345,7 +345,6 @@ class CommentAdmin(ModelAdmin):
                 'article',
                 'name',
                 'email',
-                'website',
                 'approved'
             ),
             'classes': ('wide',)
