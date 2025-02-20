@@ -73,6 +73,7 @@ def porfolio_view(request):
 
 def blog_view(request):
     # Requête de base optimisée pour les articles avec leurs relations
+
     articles_list = (
         Article.objects
         .select_related('categorie', 'author')  # Pour les relations ForeignKey
@@ -83,18 +84,22 @@ def blog_view(request):
 
     # Recherche
     query = request.GET.get('q')
+
     if query:
         articles_list = articles_list.filter(titre__icontains=query)
 
     # Filtrage par catégorie
     category = request.GET.get('category')
+
     if category:
         articles_list = articles_list.filter(categorie__slug=category)
 
     # Filtrage par tag
     tag = request.GET.get('tag')
+    
     if tag:
         articles_list = articles_list.filter(tags__slug=tag)
+
 
     # Pagination
     paginator = Paginator(articles_list, 6)  # 6 articles par page
@@ -189,7 +194,6 @@ def blog_detail_view(request, slug):
         )
     ).order_by('-article_count')[:20]
 
-
     # Gestion du formulaire de commentaire
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -211,7 +215,7 @@ def blog_detail_view(request, slug):
         'comment_form': comment_form,
         'recent_articles': recent_articles,
         'categories': categories,
-        'tags': tags,
+        'tags': tags
     }
 
     # Mise a jour du contexte pour l'ajout du dictionnaire des meta données

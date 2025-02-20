@@ -77,7 +77,10 @@
               <ul class="tags">
                 {% for tag in article.tags.all %}
                 <li>
-                  <a href="{% url 'blog' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
+                  <a href="{% url 'blog' %}?tag={{ tag.slug }}">
+                    {{ tag.nom }} 
+                    <span>({{ tag.article_count }})</span>
+                  </a>
                 </li>
                 {% endfor %}
               </ul>
