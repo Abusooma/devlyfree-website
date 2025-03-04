@@ -2281,7 +2281,7 @@ section,
 .team .team-member .member-img {
   position: relative;
   overflow: hidden;
-  flex: 0 0 250px; /* Hauteur fixe */
+  flex: 0 0 300px; /* Hauteur fixe */
 }
 
 .team .team-member .member-img img {
