@@ -218,7 +218,6 @@ def blog_detail_view(request, slug):
         'tags': tags
     }
 
-    # Mise a jour du contexte pour l'ajout du dictionnaire des meta données
     context.update(request.seo_data)
 
     return render(request, 'devlyfree/blog_detail.html', context)
@@ -267,6 +266,9 @@ def upload_image(request):
             'error': f'Erreur inattendue: {str(e)}'
         }, status=500)
 
-    return JsonResponse({
-        'error': 'Méthode non autorisée'
-    }, status=405)
+    return JsonResponse(
+        {
+            'error': 'Méthode non autorisée'
+        }, 
+        status=405
+    )
