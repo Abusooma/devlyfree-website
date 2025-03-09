@@ -117,7 +117,7 @@ def blog_view(request):
         .annotate(
             article_count=Count(
                 'articles',
-                filter=Article.objects.filter(status='published').values('id')
+                filter=Q(articles__status='published')
             )
         )
         .order_by('nom')
@@ -126,7 +126,7 @@ def blog_view(request):
     tags = Tag.objects.annotate(
         article_count=Count(
             'articles',
-            filter=Article.objects.filter(status='published').values('id')
+            filter=Q(articles__status='published')
         )
     ).order_by('-article_count')[:20]  # Limiter aux 20 tags les plus utilisés
 
