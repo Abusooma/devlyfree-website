@@ -11,3 +11,4 @@ django-cloudinary-storage
 django-compressor
 django-quill-editor
 beautifulsoup4
+django-htmx

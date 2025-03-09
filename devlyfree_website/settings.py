@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_quill',
     'cloudinary_storage',
     'cloudinary',
+    'django_htmx',
 ]
 
 # Configuration complète UNFOLD
@@ -113,6 +114,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'devlyfree.middleware.SEOMiddleware',
     'devlyfree.middleware.RequestSizeMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 WHITENOISE_MAX_AGE = 31536000  # 1 an en secondes

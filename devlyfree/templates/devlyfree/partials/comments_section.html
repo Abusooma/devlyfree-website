@@ -1,0 +1,152 @@
+<!-- Section des commentaires -->
+<section id="blog-comments" class="blog-comments section">
+  <div class="container">
+    <h4 class="comments-count">{{ comments_count }} Commentaires</h4>
+
+    {% for comment in comments %} {% if not comment.parent %}
+    <!-- Afficher seulement les commentaires principaux -->
+    <div id="comment-{{ comment.id }}" class="comment">
+      <div class="d-flex">
+        <div class="comment-img">
+          {% if comment.author and comment.author.profile.avatar %}
+          <img
+            src="{{ comment.author.profile.avatar.url }}"
+            alt="{{ comment.name }}"
+          />
+          {% else %}
+          <div
+            class="d-flex align-items-center justify-content-center bg-light rounded-circle"
+            style="width: 60px; height: 60px"
+          >
+            <i class="bi bi-person-fill fs-2 text-secondary"></i>
+          </div>
+          {% endif %}
+        </div>
+        <div>
+          <h5>
+            <a href="">{{ comment.name }}</a>
+            <a
+              href="#"
+              class="reply"
+              hx-get="{% url 'blog_detail' article.slug %}?reply_to={{ comment.id }}"
+              hx-target="#comment-form-container"
+              hx-swap="innerHTML"
+            >
+              <i class="bi bi-reply-fill"></i> Répondre
+            </a>
+          </h5>
+          <time datetime="{{ comment.created_at|date:'Y-m-d' }}">
+            {{ comment.created_at|date:"d M Y" }}
+          </time>
+          <p>{{ comment.content }}</p>
+        </div>
+      </div>
+
+      {% for reply in comment.replies.all %}
+      <div id="comment-reply-{{ reply.id }}" class="comment comment-reply">
+        <div class="d-flex">
+          <div class="comment-img">
+            {% if reply.author and reply.author.profile.avatar %}
+            <img
+              src="{{ reply.author.profile.avatar.url }}"
+              alt="{{ reply.name }}"
+            />
+            {% else %}
+            <div
+              class="d-flex align-items-center justify-content-center bg-light rounded-circle"
+              style="width: 60px; height: 60px"
+            >
+              <i class="bi bi-person-fill fs-2 text-secondary"></i>
+            </div>
+            {% endif %}
+          </div>
+          <div>
+            <h5>
+              <a href="">{{ reply.name }}</a>
+            </h5>
+            <time datetime="{{ reply.created_at|date:'Y-m-d' }}">
+              {{ reply.created_at|date:"d M Y" }}
+            </time>
+            <p>{{ reply.content }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+</section>
+
+<!-- Formulaire de commentaire -->
+<section id="comment-form" class="comment-form section">
+  <div id="comment-form-container" class="container">
+    {% if comment_success %}
+    <div class="alert alert-success">
+      Votre commentaire a été soumis avec succès et est en attente de
+      modération.
+    </div>
+    {% endif %}
+
+    <form
+      hx-post="{% url 'add_comment' article.slug %}"
+      hx-target="#blog-comments-container"
+      hx-swap="outerHTML"
+    >
+      {% csrf_token %}
+      <h4 id="comment-form-title">Laisser un commentaire</h4>
+      <p>
+        Votre adresse e-mail ne sera pas publiée. Les champs obligatoires sont
+        marqués *
+      </p>
+
+      <input
+        type="hidden"
+        name="parent_id"
+        id="parent_id"
+        value="{{ reply_to|default:'' }}"
+      />
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          {{ comment_form.name }} {% if comment_form.name.errors %}
+          <div class="invalid-feedback">
+            {{ comment_form.name.errors|join:", " }}
+          </div>
+          {% endif %}
+        </div>
+        <div class="col-md-6 form-group">
+          {{ comment_form.email }} {% if comment_form.email.errors %}
+          <div class="invalid-feedback">
+            {{ comment_form.email.errors|join:", " }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col form-group">
+          {{ comment_form.content }} {% if comment_form.content.errors %}
+          <div class="invalid-feedback">
+            {{ comment_form.content.errors|join:", " }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">
+          Publier le commentaire
+        </button>
+        {% if reply_to %}
+        <button
+          type="button"
+          class="btn btn-secondary"
+          hx-get="{% url 'blog_detail' article.slug %}"
+          hx-target="#comment-form-container"
+          hx-swap="innerHTML"
+        >
+          Annuler la réponse
+        </button>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</section>
