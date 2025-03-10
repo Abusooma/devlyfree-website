@@ -3219,3 +3219,18 @@ section,
 .code-block .number {
   color: #b5cea8;
 }
+
+
+.loading-indicator {
+    text-align: center;
+    padding: 2rem;
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
