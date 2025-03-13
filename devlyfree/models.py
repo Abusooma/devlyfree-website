@@ -3,6 +3,7 @@ from autoslug import AutoSlugField
 from django_quill.fields import QuillField
 from django.conf import settings
 from cloudinary.models import CloudinaryField
+import hashlib
 
 
 class PageSEO(models.Model):
@@ -239,3 +240,7 @@ class Comment(models.Model):
     def __str__(self):
         return f'Commentaire par {self.name} sur {self.article.titre}'
 
+
+    def get_gravatar_url(self, size=60):
+        email_hash = hashlib.md5(self.email.strip().lower().encode()).hexdigest()
+        return f"https://www.gravatar.com/avatar/{email_hash}?s={size}&d=identicon"
